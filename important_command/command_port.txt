@@ -1,0 +1,29 @@
+Steps to Display Your App in the Browser (Using Forward Ports)
+Start PHP Built-in Server
+Run this command in your terminal to start a local PHP server:
+
+
+"php -S 0.0.0.0:8000"
+This tells PHP to start a server that's accessible on all network interfaces at port 8000.
+
+Forwarding the Port (8000)
+
+In the GitHub Codespaces window, click on the Ports tab in the bottom panel (if you don’t see it, press Ctrl+Shift+P and type Ports: Focus on Ports View).
+
+Click on "Port: 8000" if it shows up automatically, or click on the “Forward a Port” button if it's not listed and type 8000.
+
+This will create a URL you can click on to view your app in the browser.
+
+Access Your App
+
+Once the port is forwarded, Codespaces will give you a URL like: https://8000-<your-codespace-id>.githubpreview.dev/
+
+Click the link, and you should see your index.php page displayed!
+
+📌 Important Notes:
+Make sure your index.php file is in the root directory of your Codespace (or navigate to its folder before running the php -S command).
+
+If you want to run on a different port (e.g., 8080), just change the command to:
+
+"php -S 0.0.0.0:8080"
+Don't forget to forward that port in the Ports tab.
