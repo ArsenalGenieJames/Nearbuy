@@ -4,34 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Create Account</title>  
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <title>Register Account</title>
   </head>
   <body class="bg-gray-100 flex flex-col items-center justify-center h-screen">  
 
-    <div class="bg-white p-6 rounded shadow-md w-96">  
-        <h2 class="text-lg font-bold text-center">Create Account</h2>  
-        <form id="signup-form" class="mt-4">  
-            <input type="email" id="email-signup" placeholder="Email" required class="w-full p-2 mb-4 border rounded"/>  
-            <input type="password" id="password-signup" placeholder="Password" required class="w-full p-2 mb-4 border rounded"/>  
-            <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded">Sign Up</button>  
-        </form>  
-        <p class="mt-4 text-center">Already have an account? <a href="login.html" class="text-blue-500">Log In</a></p>  
-    </div>  
+    <div class="bg-white p-6 rounded shadow-md w-96">
+      <h2 class="text-lg font-bold text-center">Create Account</h2>  
+      <form id="signup-form" class="mt-4">  
+          <input type="text" id="firstname" placeholder="First Name" required class="w-full p-2 mb-4 border rounded"/>
+          <input type="text" id="lastname" placeholder="Last Name" required class="w-full p-2 mb-4 border rounded"/>
+          <input type="number" id="phonenumber" placeholder="Phone Number" required class="w-full p-2 mb-4 border rounded"/>
+          <input type="text" id="address" placeholder="Address" required class="w-full p-2 mb-4 border rounded"/>  
+          <input type="email" id="email-signup" placeholder="Email" required class="w-full p-2 mb-4 border rounded"/>  
+          <input type="password" id="password-signup" placeholder="Password" required class="w-full p-2 mb-4 border rounded"/>  
+          <select id="userType" required class="w-full p-2 mb-4 border rounded">
+            <option value="">Select User Type</option>
+            <option value="seller" id="seller">Seller</option>
+            <option value="customer" id="customer">Customer</option>
+            <option value="rider" id="rider">Rider</option>
+          </select>
+          <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded">Sign Up</button>  
+      </form>  
+      <p class="mt-4 text-center">Already have an account? <a href="login.html" class="text-blue-500">Log In</a></p>  
+  </div>
 
-    <script type="module">  
-        import { signUp } from 'supabase_db.js';  
-
-        // Sign up functionality  
-        document.getElementById('signup-form').addEventListener('submit', async (e) => {  
-            e.preventDefault();  
-
-            const email = document.getElementById('email-signup').value;  
-            const password = document.getElementById('password-signup').value;  
-
-            await signUp(email, password);  
-        });  
-    </script>  
-</body>  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase_db.js"></script>
+  <script src="./js/supabase.js"></script>
+  </body>
 </html>
