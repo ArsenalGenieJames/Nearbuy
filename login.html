@@ -5,19 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Login</title>
   </head>
-  <body class="bg-gray-100 flex flex-col items-center justify-center h-screen">  
+  <body>  
 
-    <div class="bg-white p-6 rounded shadow-md w-96">
-        <h2 class="text-lg font-bold text-center">Create Account</h2>  
-        <form id="signup-form" class="mt-4">  
-            <input type="number" id="phonenumber" placeholder="Enter Phone Number" required class="w-full p-2 mb-4 border rounded"/>  
-            <input type="password" id="password-signup" placeholder="Password" required class="w-full p-2 mb-4 border rounded"/>  
-            <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded">Sign Up</button>  
-        </form>  
-        <p class="mt-4 text-center">Already have an account? <a href="register.html" class="text-blue-500">Register</a></p>  
+    <div class="flex h-screen flex-col md:flex-row">
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-100 p-8 h-screen">
+      <h2 class="text-2xl font-bold text-center w-full">Log In</h2>
+      <form class="w-full max-w-sm mt-2">
+      <div class="mb-4">
+        <input id="phonenumber" type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="Phone number" required>
+      </div>
+      <div class="mb-4">
+        <input type="password" id="password-signup" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter password" required>
+      </div>
+      <div class="flex flex-col items-center space-y-4">
+        <button type="submit" class="w-full loginbutton text-white py-2 px-4 rounded">Log in</button>
+        <p class="text-gray-600 text-center">
+        Don’t have an account? 
+        <a href="register.html" class="text-blue-500">Sign up</a>
+        </p>
+      </div>
+      </form>
     </div>
+
+      <!-- Right side: Image with overlapping text -->
+        <div class="w-1/2 relative hidden md:block">
+          <img src="" alt="">
+            <img src="./assets/img/tinagofalls.png" alt="Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex justify-center items-center">
+          <h1 class="text-white text-4xl font-bold">NearBuy</h1>
+            </div>
+            <div class="absolute bottom-4 w-full flex justify-center space-x-4">
+          <a href="#" class="text-white">🔵 Facebook</a>
+          <a href="#" class="text-white">🟣 Instagram</a>
+          <a href="#" class="text-white">🔴 Twitter</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./js/script.js"></script>
     <script src="./js/supabase.js"></script>
   </body>
 </html>

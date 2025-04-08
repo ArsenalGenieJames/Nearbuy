@@ -1,0 +1,11 @@
+body{
+     font-family: "Istok Web";
+}
+.loginbutton{
+    background: #CC2119;
+    border-radius: 9px;
+}
+.loginbutton:hover{
+    background: #F6CD13;
+    border-radius: 9px;
+}
