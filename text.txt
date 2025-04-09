@@ -3,22 +3,60 @@
 
 
 
- <div class="bg-white p-6 rounded shadow-md w-96">
-      <h2 class="text-lg font-bold text-center">Create Account</h2>  
-      <form id="signup-form" class="mt-4">  
-          <input type="text" id="firstname" placeholder="First Name" required class="w-full p-2 mb-4 border rounded"/>
-          <input type="text" id="lastname" placeholder="Last Name" required class="w-full p-2 mb-4 border rounded"/>
-          <input type="number" id="phonenumber" placeholder="Phone Number" required class="w-full p-2 mb-4 border rounded"/>
-          <input type="text" id="address" placeholder="Address" required class="w-full p-2 mb-4 border rounded"/>  
-          <input type="email" id="email-signup" placeholder="Email" required class="w-full p-2 mb-4 border rounded"/>  
-          <input type="password" id="password-signup" placeholder="Password" required class="w-full p-2 mb-4 border rounded"/>  
-          <select id="userType" required class="w-full p-2 mb-4 border rounded">
-            <option value="">Select User Type</option>
-            <option value="seller" id="seller">Seller</option>
-            <option value="customer" id="customer">Customer</option>
-            <option value="rider" id="rider">Rider</option>
-          </select>
-          <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded">Sign Up</button>  
-      </form>  
-      <p class="mt-4 text-center">Already have an account? <a href="login.html" class="text-blue-500">Log In</a></p>  
-  </div>
+
+  const supabaseUrl = "https://hlzxnmnurukavrybpbkm.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsenhubW51cnVrYXZyeWJwYmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzcxOTAsImV4cCI6MjA1OTYxMzE5MH0.QUiEwiUVdKTQIdfNsg043Pw09j6fjB8sI9aFOCFzZh8"; // don't expose this key in production!
+  const supabase = window.supabase;
+  const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+  const form = document.getElementById("signup-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+  
+    const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const phonenumber = document.getElementById("phonenumber").value;
+    const address = document.getElementById("address").value;
+    const email = document.getElementById("email-signup").value;
+    const password = document.getElementById("password-signup").value;
+    const usertype = document.getElementById("userType").value;
+  
+    const { data, error } = await client.auth.signUp({
+      email,
+      password,
+    });
+  
+    if (error) {
+      console.error("Sign up error:", error.message);
+      alert("❌ " + error.message);
+      return;
+    }
+  
+    const { user } = data;
+  
+    const { error: insertError } = await client.from("users").insert([
+      {
+        auth_id: user.id,
+        email,
+        password,
+        re_password: password,
+        firstname,
+        lastname,
+        phone_number: phonenumber,
+        address,
+        usertype, // 👈 this line is key!
+        created_at: new Date().toISOString(),
+      },
+    ]);
+  
+    if (insertError) {
+      console.error("Insert error:", insertError.message);
+      alert("❌ " + insertError.message);
+      return;
+    }
+  
+    alert("✅ Signup successful!");
+  });
+  
+      
