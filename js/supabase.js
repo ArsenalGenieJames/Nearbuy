@@ -1,57 +1,7 @@
 
+  //supabase connection ni siya 
   const supabaseUrl = "https://hlzxnmnurukavrybpbkm.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsenhubW51cnVrYXZyeWJwYmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMzcxOTAsImV4cCI6MjA1OTYxMzE5MH0.QUiEwiUVdKTQIdfNsg043Pw09j6fjB8sI9aFOCFzZh8"; // don't expose this key in production!
   const supabase = window.supabase;
   const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-  const form = document.getElementById("signup-form");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-  
-    const firstname = document.getElementById("firstname").value;
-    const lastname = document.getElementById("lastname").value;
-    const phonenumber = document.getElementById("phonenumber").value;
-    const address = document.getElementById("address").value;
-    const email = document.getElementById("email-signup").value;
-    const password = document.getElementById("password-signup").value;
-    const usertype = document.getElementById("userType").value;
-  
-    const { data, error } = await client.auth.signUp({
-      email,
-      password,
-    });
-  
-    if (error) {
-      console.error("Sign up error:", error.message);
-      alert("❌ " + error.message);
-      return;
-    }
-  
-    const { user } = data;
-  
-    const { error: insertError } = await client.from("users").insert([
-      {
-        auth_id: user.id,
-        email,
-        password,
-        re_password: password,
-        firstname,
-        lastname,
-        phone_number: phonenumber,
-        address,
-        usertype, // 👈 this line is key!
-        created_at: new Date().toISOString(),
-      },
-    ]);
-  
-    if (insertError) {
-      console.error("Insert error:", insertError.message);
-      alert("❌ " + insertError.message);
-      return;
-    }
-  
-    alert("✅ Signup successful!");
-  });
-  
-      
