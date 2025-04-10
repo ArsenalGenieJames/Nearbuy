@@ -9,3 +9,6 @@ body{
     background: #F6CD13;
     border-radius: 9px;
 }
+.custom-ads , marquee{
+    background-color: #F6CD13;
+}
