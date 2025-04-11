@@ -17,3 +17,7 @@ body{
     color: #CC2119;
     font-weight: bold;
 }
+.custom-ads-1{
+    background: url(image_1_food.jpg), #CC2119;
+    height: 500px;
+}
