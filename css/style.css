@@ -11,6 +11,7 @@ body{
 }
 .custom-ads , marquee{
     background-color: #F6CD13;
+    padding-top: 3px ;
 }
 .custom-per{
     color: #CC2119;
