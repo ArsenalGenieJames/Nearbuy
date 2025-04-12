@@ -1,7 +1,7 @@
 # E-commerce Website for Local Sellers
 
-# set up to run in web dev
-To start the PHP dev server:
+# Set up to run in web dev
+To start the PHP development server, run the command :
 
 ```bash
 php -S 0.0.0.0:8000
