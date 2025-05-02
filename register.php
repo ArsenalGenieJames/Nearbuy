@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Register Account</title>
+  </head>
+  <body>  
+    <div class="flex h-screen flex-col md:flex-row">
+      <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-100 p-8 h-screen">
+        <h2 class="text-2xl font-bold text-center w-full">Register</h2>
+        <form action="./php_function/register.php" class="w-full max-w-sm mt-2" method="POST">
+          <div class="mb-4">
+            <input type="text" id="firstname" name="firstname" placeholder="First Name" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          <div class="mb-4">
+            <input type="text" id="lastname" name="lastname" placeholder="Last Name" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          <div class="mb-4">
+            <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          <div class="mb-4">
+            <input type="text" id="address" name="address" placeholder="Address" required 
+              class="w-full p-2 border border-gray-300 rounded"/> 
+          </div>
+          <div class="mb-4">
+            <input type="email" id="email" name="email" placeholder="Email" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          <div class="mb-4">
+            <input type="password" id="password" name="password" placeholder="Password" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          <div class="mb-4">
+            <input type="password" id="re_password" name="re_password" placeholder="Confirm Password" required 
+              class="w-full p-2 border border-gray-300 rounded"/>
+          </div>
+          
+          <select id="usertype" name="usertype" required class="w-full p-2 mb-4 border rounded">
+            <option value="">-- SELECT USER --</option>
+            <option value="seller">Seller</option>
+            <option value="customer">Customer</option>
+            <option value="rider">Rider</option>
+          </select>
+
+        <div class="flex flex-col items-center space-y-4">
+          <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded loginbutton">Sign Up</button> 
+          <p class="text-gray-600 text-center">
+            Already have an account? 
+          <a class='text-blue-500' href='./login.php'>Sign up</a>
+          </p>
+        </div>
+        </form>
+      </div>
+  
+        <!-- pag mobile size ni mawal ni siya (will be hidden) -->
+          <div class="w-1/2 relative hidden md:block">
+            <img src="./assets/img/nearbuy_primary_logo.png" alt="logo" class="absolute top-4 w-40 p-10">
+              <img src="./assets/img/tinagofalls.png" alt="Background" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex justify-center items-center">
+            <h1 class="text-white text-8xl font-bold ">NearBuy</h1>
+              </div>
+              <div class="absolute bottom-4 w-full flex justify-center space-x-4">
+                <a href="#" class="text-white"><i class="fa-brands fa-facebook-f"></i> NearBuy</a>
+                <a href="#" class="text-white"><i class="fa-brands fa-instagram"></i> NearBuy</a>
+                <a href="#" class="text-white"><i class="fa-brands fa-twitter"></i> NearBuy</a>
+              </div>
+          </div>
+      </div>
+  
+
+  </body>
+</html>

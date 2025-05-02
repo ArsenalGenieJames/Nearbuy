@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Login</title>
+  </head>
+  <body>  
+
+    <div class="flex h-screen flex-col md:flex-row">
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-100 p-8 h-screen">
+      <h2 class="text-2xl font-bold text-center w-full">Log In</h2>
+
+        <form action="./php_function/login.php" method="POST" class="w-full max-w-sm mt-2">
+          <div class="mb-4">
+              <input id="phone_number" name="phone_number" type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="Phone number" required>
+          </div>
+          <div class="mb-4">
+              <input id="password" name="password" type="password" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter password" required>
+          </div>
+          <div class="flex flex-col items-center space-y-4">
+              <button type="submit" class="w-full loginbutton text-white py-2 px-4 rounded">Log in</button>
+              <p class="text-gray-600 text-center">
+                  Don’t have an account? 
+                  <a href="register.php" class="text-blue-500">Sign up</a>
+              </p>
+          </div>
+      </form>
+
+    </div>
+      <!-- pag mobile size ni mawal ni siya (will be hidden) -->
+        <div class="w-1/2 relative hidden md:block">
+          <img src="./assets/img/nearbuy_primary_logo.png" alt="logo" class="absolute top-4 w-40 p-10">
+            <img src="./assets/img/tinagofalls.png" alt="Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex justify-center items-center">
+          <h1 class="text-white text-8xl font-bold ">NearBuy</h1>
+            </div>
+            <div class="absolute bottom-4 w-full flex justify-center space-x-4">
+              <a href="#" class="text-white"><i class="fa-brands fa-facebook-f"></i> NearBuy</a>
+              <a href="#" class="text-white"><i class="fa-brands fa-instagram"></i> NearBuy</a>
+              <a href="#" class="text-white"><i class="fa-brands fa-twitter"></i> NearBuy</a>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>

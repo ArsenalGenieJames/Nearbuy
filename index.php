@@ -32,8 +32,8 @@
               <i class="fas fa-search text-gray-500"></i>
             </div>
             <input type="text" id="default-search" 
-              class="block p-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-              placeholder="Search..." required>
+            class="block p-2 pl-10 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 text-black" 
+            placeholder="Search..." required>
           </div>
           <button type="submit" 
             class="inline-flex items-center p-2 ml-2 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300">
@@ -49,8 +49,8 @@
           </i>
         </a>
         
-        <a href="register.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
-        <a href="login.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
+        <a href="register.php" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
+        <a href="login.php" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
       </div>
 
       </div>
@@ -479,7 +479,7 @@
                 <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Customer Service</h2>
                 <ul class="text-gray-500 dark:text-gray-400 font-medium">
                     <li class="mb-4">
-                        <a href="index.html" class="hover:underline dark:text-white ">Help centre</a>
+                        <a href="index.php" class="hover:underline dark:text-white ">Help centre</a>
                     </li>
                     <li>
                         <a href="https://discord.gg/4eeurUVvTy" class="hover:underline dark:text-white">Contact Us</a>
@@ -499,7 +499,7 @@
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-white">© 2025 <a href="index.html" class="hover:underline">NearBuy™</a>. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-white">© 2025 <a href="index.php" class="hover:underline">NearBuy™</a>. All Rights Reserved.
         </span>
   </div>
 </footer>
@@ -507,70 +507,71 @@
 
 <script>
 
- let orders = [];
-let selectedProduct = {};
-let quantity = 1;
+        let orders = [];
+        let selectedProduct = {};
+        let quantity = 1;
 
-function openPopup(productName, productPrice) {
-  selectedProduct = { name: productName, price: productPrice };
-  quantity = 1;
-  document.getElementById('popupProductName').textContent = productName;
-  document.getElementById('popupProductPrice').textContent = `₱${productPrice.toFixed(2)}`;
-  document.getElementById('quantity').textContent = quantity;
-  document.getElementById('popupModal').classList.remove('hidden');
-}
+        function openPopup(productName, productPrice) {
+          selectedProduct = { name: productName, price: productPrice };
+          quantity = 1;
+          document.getElementById('popupProductName').textContent = productName;
+          document.getElementById('popupProductPrice').textContent = `₱${productPrice.toFixed(2)}`;
+          document.getElementById('quantity').textContent = quantity;
+          document.getElementById('popupModal').classList.remove('hidden');
+        }
 
-function closePopup() {
-  document.getElementById('popupModal').classList.add('hidden');
-}
+        function closePopup() {
+          document.getElementById('popupModal').classList.add('hidden');
+        }
 
-function increaseQuantity() {
-  quantity++;
-  document.getElementById('quantity').textContent = quantity;
-}
+        function increaseQuantity() {
+          quantity++;
+          document.getElementById('quantity').textContent = quantity;
+        }
 
-function decreaseQuantity() {
-  if (quantity > 1) {
-    quantity--;
-    document.getElementById('quantity').textContent = quantity;
-  }
-}
+        function decreaseQuantity() {
+          if (quantity > 1) {
+            quantity--;
+            document.getElementById('quantity').textContent = quantity;
+          }
+        }
 
-function confirmAddToOrder() {
-  for (let i = 0; i < quantity; i++) {
-    orders.push(selectedProduct);
-  }
-  alert(`${selectedProduct.name} (x${quantity}) added to Orders`);
-  console.log("Current Orders:", orders);
-  renderOrders();
-  closePopup();
-}
+        function confirmAddToOrder() {
+          for (let i = 0; i < quantity; i++) {
+            orders.push(selectedProduct);
+          }
+          alert(`${selectedProduct.name} (x${quantity}) added to Orders`);
+          console.log("Current Orders:", orders);
+          renderOrders();
+          closePopup();
+        }
 
-function addToOrder(productName, productPrice) {
-  const cartCountSpan = document.getElementById('cart-icons');
-  let count = parseInt(cartCountSpan.textContent) || 0;
-  count += 1;
-  cartCountSpan.textContent = count;
+        function addToOrder(productName, productPrice) {
+          const cartCountSpan = document.getElementById('cart-icons');
+          let count = parseInt(cartCountSpan.textContent) || 0;
+          count += 1;
+          cartCountSpan.textContent = count;
 
-  // Add product to orders array
-  orders.push({ name: productName, price: productPrice });
-  console.log("Added to cart:", productName, "Price:", productPrice);
-  renderOrders();
-}
+          // Add product to orders array
+          orders.push({ name: productName, price: productPrice });
+          console.log("Added to cart:", productName, "Price:", productPrice);
+          renderOrders();
+        }
 
-function renderOrders() {
-  // Assuming you have a container to render your orders
-  const orderList = document.getElementById('orderList');
-  orderList.innerHTML = ''; // Clear previous list
+        function renderOrders() {
+          // Assuming you have a container to render your orders
+          const orderList = document.getElementById('orderList');
+          orderList.innerHTML = ''; // Clear previous list
 
-  orders.forEach(order => {
-    const orderItem = document.createElement('li');
-    orderItem.textContent = `${order.name} - ₱${order.price.toFixed(2)}`;
-    orderList.appendChild(orderItem);
-  });
-}
+          orders.forEach(order => {
+            const orderItem = document.createElement('li');
+            orderItem.textContent = `${order.name} - ₱${order.price.toFixed(2)}`;
+            orderList.appendChild(orderItem);
+          });
+        }
 
 </script>
+
 
 
   
