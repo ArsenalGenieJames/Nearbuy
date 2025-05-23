@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +7,7 @@
     <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/index_function.js" defer></script>
     <title>Nearbuy</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
       <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="./assets/img/nearbuy_primary_logo.png" class="h-8 bg-white" alt="Serbesa Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
         <span style="color: #F6CD13;">Nearbuy</span>
         </span>
       </a>
@@ -33,7 +33,7 @@
             </div>
             <input type="text" id="default-search" 
             class="block p-2 pl-10 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 text-black" 
-            placeholder="Search..." required>
+            placeholder="Search your desire..." required>
           </div>
           <button type="submit" 
             class="inline-flex items-center p-2 ml-2 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300">
@@ -49,8 +49,8 @@
           </i>
         </a>
         
-        <a href="register.php" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
-        <a href="login.php" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
+        <a href="register.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
+        <a href="login.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
       </div>
 
       </div>
@@ -73,18 +73,16 @@
 
     <div class="container mx-auto px-4">
       <div id="default-carousel" class="relative w-full max-w-6xl mx-auto px-10 md:px-20 my-10 " data-carousel="static">
-        <!-- Carousel wrapper -->
+
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-          <!-- Video Item -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <video class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" id="carousel-video-1" controls>
               <source src="./assets/video/viva tourismo.mp4" type="video/mp4">
-              <!-- Fallback content if the video cannot be loaded -->
               Your browser does not support the video tag.
             </video>
           </div>
     
-          <!-- Image Items -->
+
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img src="./assets/img/products.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
           </div>
@@ -101,7 +99,7 @@
         <!-- Slider controls -->
         <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none transform transition-all duration-300 ease-in-out hover:scale-110" data-carousel-prev>
           <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#F6CD13] group-hover:bg-[#e6bd10] group-focus:ring-4 group-focus:ring-[#F6CD13] group-focus:outline-none">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
             </svg>
             <span class="sr-only">Previous</span>
@@ -110,7 +108,7 @@
     
         <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none transform transition-all duration-300 ease-in-out hover:scale-110" data-carousel-next>
           <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#F6CD13] group-hover:bg-[#e6bd10] group-focus:ring-4 group-focus:ring-[#F6CD13] group-focus:outline-none">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
             <span class="sr-only">Next</span>
@@ -126,149 +124,165 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     
     <!-- Product 1 -->
-<div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-  <img src="./assets/img/products.jpg" alt="Suka Pinakurat" class="w-full h-48 object-cover">
-  <div class="p-4">
-    <h2 class="text-lg font-semibold">Suka Pinakurat</h2>
-    <small class="text-gray-500">750mL</small>
-    <p class="text-gray-600">Spiced vinegar perfect for grilled dishes.</p>
-    <div class="flex items-center justify-between mt-2">
-      <p class="text-yellow-500 font-bold">₱100.00</p>
-      <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-        <button onclick="addToOrder('Suka Pinakurat', 100)" class="cursor-pointer">
-          <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-        </button>
+      <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+           <a href="product-details.html">
+                <img src="./assets/butang/Inabal Weaving" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Inabal Weaving</h2>
+                <small class="text-gray-500">Approx. 1m x 2m</small>
+                <p class="text-gray-600">Traditional handwoven fabric made using backstrap looms.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱1,500</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Inabal Weaving')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
-  </div>
-</div>
 
 
     <!-- Product 2 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Danggit" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Danggit</h2>
-        <small class="text-gray-500">250g</small>
-        <p class="text-gray-600">Crispy dried fish, a breakfast favorite.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱150.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Danggit')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Bangkaso (Wooden Mortar)</h2>
+                <small class="text-gray-500">Approximately 13 cm in height</small>
+                <p class="text-gray-600">Traditional wooden mortar for pounding rice and corn.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱800</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Wooden Mortar')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 3 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Chicharon Bulaklak" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Chicharon Bulaklak</h2>
-        <small class="text-gray-500">200g</small>
-        <p class="text-gray-600">Deep-fried ruffled fat – crunchy goodness.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱120.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Chicharon Bulaklak')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+      <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Luna Shell Necklace</h2>
+                <small class="text-gray-500">Hypoallergenic Stainless Steel shell</small>
+                <p class="text-gray-600">A necklace featuring a shell pendant, embodying natural elegance.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱950.00</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Luna Shell Necklace')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 4 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Tuyo" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Tuyo</h2>
-        <small class="text-gray-500">Bottle</small>
-        <p class="text-gray-600">Salted dried fish in oil, great with rice.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱80.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Tuyo')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+      <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Sol (Sun) de Luna (Moon) Necklace</h2>
+                <small class="text-gray-500">Sterling Gold</small>
+                <p class="text-gray-600">A necklace featuring a shell pendant, embodying natural elegance.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱399.00</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Sol Necklace')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 5 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Pritong Talong" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Pritong Talong</h2>
-        <small class="text-gray-500">1 pc</small>
-        <p class="text-gray-600">Fried eggplant – a healthy local side dish.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱30.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Pritong Talong')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Panika (Higaonon Hat)</h2>
+                <small class="text-gray-500">Approximately 13 cm in height</small>
+                <p class="text-gray-600">Traditional wooden mortar for pounding rice and corn.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱600</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Higaonon Hat')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 6 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Lechon Paksiw" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Lechon Paksiw</h2>
-        <small class="text-gray-500">500g</small>
-        <p class="text-gray-600">Savory stew of leftover roasted pork.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱160.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Lechon Paksiw')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Salapid (Abaca Rope/Twine)</h2>
+                <small class="text-gray-500">Per meter length of rope</small>
+                <p class="text-gray-600">Traditional hand-braided rope for farming and crafts.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱100</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Salapid Abaca Rope')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 7 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Kinilaw" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Kinilaw</h2>
-        <small class="text-gray-500">300g</small>
-        <p class="text-gray-600">Fresh fish cured in vinegar and spices.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱140.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Kinilaw')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
+     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Lubid nga Kalayo (Fire Rope/Kindling)</h2>
+                <small class="text-gray-500">Rope made from dried bark, grass, or coconut husk</small>
+                <p class="text-gray-600">Traditional wooden mortar for pounding rice and corn.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱50</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Fire Rope')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
 
     <!-- Product 8 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Bam-i" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <h2 class="text-lg font-semibold">Bam-i</h2>
-        <small class="text-gray-500">1 Tub</small>
-        <p class="text-gray-600">Visayan stir-fried noodles with meat and veggies.</p>
-        <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱120.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Bam-i')" class="cursor-pointer">
-              <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+           <a href="#product-details">
+                <img src="./assets/butang/Bangkaso.webp" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+            </a>
+              <div class="p-4">
+                <h2 class="text-lg font-semibold">Bolo</h2>
+                <small class="text-gray-500">Handcrafted blade with bone/wood handle</small>
+                <p class="text-gray-600">Handcrafted blade used in farming, hunting, and ceremonial rites. Made by Lumad blacksmiths, with wooden or bone handles.</p>
+                <div class="flex items-center justify-between mt-2">
+                  <p class="text-yellow-500 font-bold">₱2,000</p>
+                  <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+                    <button onclick="addToOrder('Bolo')" class="cursor-pointer">
+                      <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+       </div>
 
   </div>
 </div>
@@ -280,15 +294,17 @@
     
     <!-- Product 1 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+      <a href="#product-details">
+                <img src="./assets/pagkaon/letchons.jpg" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Suka Pinakurat</h2>
-        <small class="text-gray-500">750mL</small>
-        <p class="text-gray-600">Spiced vinegar perfect for grilled dishes.</p>
+        <h2 class="text-lg font-semibold">Letchon De Bayug</h2>
+        <small class="text-gray-500">Per Kilo</small>
+        <p class="text-gray-600">Iligan's famous roasted pig known for its tender meat, crispy skin, and unique lemongrass-infused marinade.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱100.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Suka Pinakurat')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱550.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Letchon De Bayug')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -298,15 +314,17 @@
 
     <!-- Product 2 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Danggit" class="w-full h-48 object-cover">
+      <a href="#product-details">
+                <img src="./assets/pagkaon/beef.jpg" alt="Beef Halang Halang" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Danggit</h2>
-        <small class="text-gray-500">250g</small>
-        <p class="text-gray-600">Crispy dried fish, a breakfast favorite.</p>
+        <h2 class="text-lg font-semibold">Beef Halang Halang</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">Spicy Filipino beef stew cooked with coconut milk, chili, and aromatic spices rich, creamy, and boldly flavored.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱150.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Danggit')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱80.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Beef Halang Halang')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -315,16 +333,18 @@
     </div>
 
     <!-- Product 3 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Chicharon Bulaklak" class="w-full h-48 object-cover">
+   <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+      <a href="#product-details">
+                <img src="./assets/pagkaon/sukapinakurat.jpg" alt="Suka Pinakurat" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Chicharon Bulaklak</h2>
-        <small class="text-gray-500">200g</small>
-        <p class="text-gray-600">Deep-fried ruffled fat – crunchy goodness.</p>
+        <h2 class="text-lg font-semibold">Suka Pinakurat</h2>
+        <small class="text-gray-500">750mL</small>
+        <p class="text-gray-600">Spiced vinegar perfect for grilled dishes.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱120.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Chicharon Bulaklak')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱121.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Beef Halang Halang')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -334,15 +354,17 @@
 
     <!-- Product 4 -->
     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Tuyo" class="w-full h-48 object-cover">
+      <a href="#product-details">
+        <img src="./assets/pagkaon/pater.jpg" alt="Tuyo" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Tuyo</h2>
-        <small class="text-gray-500">Bottle</small>
-        <p class="text-gray-600">Salted dried fish in oil, great with rice.</p>
+        <h2 class="text-lg font-semibold">Pater & Palapa</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">Rice topped with seasoned meat, wrapped in banana leaf, often served with Palapa, a spicy Maranao condiment made from chili, ginger, and coconut.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱80.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Tuyo')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱35.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Pater & Palapa')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -351,16 +373,18 @@
     </div>
 
     <!-- Product 5 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Pritong Talong" class="w-full h-48 object-cover">
+   <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+      <a href="#product-details">
+        <img src="./assets/pagkaon/letchobox.jpg" alt="Tuyo" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Pritong Talong</h2>
-        <small class="text-gray-500">1 pc</small>
-        <p class="text-gray-600">Fried eggplant – a healthy local side dish.</p>
+        <h2 class="text-lg font-semibold">Lechon In Box</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">A convenient serving of crispy roasted pork packed neatly in a box—perfect for takeout or small gatherings.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱30.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Pritong Talong')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱850.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Lechon In Box')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -369,16 +393,18 @@
     </div>
 
     <!-- Product 6 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Lechon Paksiw" class="w-full h-48 object-cover">
+  <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+      <a href="#product-details">
+        <img src="./assets/pagkaon/Palapa.jfif" alt="Tuyo" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Lechon Paksiw</h2>
-        <small class="text-gray-500">500g</small>
-        <p class="text-gray-600">Savory stew of leftover roasted pork.</p>
+        <h2 class="text-lg font-semibold">Palapa</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">A sweet and spicy Maranao condiment made from chili, ginger, shallots, and toasted coconut, often used to flavor rice and native dishes.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱160.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Lechon Paksiw')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱50.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Palapa')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -387,16 +413,18 @@
     </div>
 
     <!-- Product 7 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Kinilaw" class="w-full h-48 object-cover">
+   <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+      <a href="#product-details">
+        <img src="./assets/pagkaon/kuning.jpeg" alt="Tuyo" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Kinilaw</h2>
-        <small class="text-gray-500">300g</small>
-        <p class="text-gray-600">Fresh fish cured in vinegar and spices.</p>
+        <h2 class="text-lg font-semibold">Kuning</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">Yellow rice cooked with turmeric and coconut milk, served during feasts and weddings.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱140.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Kinilaw')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱30.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Kuning')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
@@ -405,29 +433,30 @@
     </div>
 
     <!-- Product 8 -->
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-      <img src="./assets/img/products.jpg" alt="Bam-i" class="w-full h-48 object-cover">
+     <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+      <a href="#product-details">
+        <img src="./assets/pagkaon/Palapa.jfif" alt="Tuyo" class="w-full h-48 object-cover">
+      </a>
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Bam-i</h2>
-        <small class="text-gray-500">1 Tub</small>
-        <p class="text-gray-600">Visayan stir-fried noodles with meat and veggies.</p>
+        <h2 class="text-lg font-semibold">Piyapara Manok</h2>
+        <small class="text-gray-500"></small>
+        <p class="text-gray-600">Maranao chicken dish simmered in coconut milk with turmeric, palapa, and spices for a rich, creamy flavor.</p>
         <div class="flex items-center justify-between mt-2">
-          <p class="text-yellow-500 font-bold">₱120.00</p>
-          <div style="background-color: #CC2119; padding: 10px; border-radius: 9999px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;">
-            <button onclick="addToOrder('Bam-i')" class="cursor-pointer">
+          <p class="text-yellow-500 font-bold">₱350.00</p>
+          <div class="bg-[#CC2119] p-2 rounded-full w-10 h-10 flex justify-center items-center cart-btn">
+            <button onclick="addToOrder('Palapa')" class="cursor-pointer">
               <i class="fa-solid fa-cart-shopping" style="color: #F6CD13;"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
 
-    <!-- popup modal quantiy -->
-    <div id="popupModal" class="fixed inset-0 flex items-center justify-center  bg-opacity-50 hidden z-50">
+    <!-- popup modal quantity -->
+    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50">
       <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+        <img src="" alt="Product Image" id="popupProductImage" class="w-full h-48 object-cover">
         <div class="flex justify-between items-center mb-4">
           <h3 id="popupProductName" class="text-lg font-semibold"></h3>
           <button onclick="closePopup()" class="text-gray-500 hover:text-gray-700">&times;</button>
@@ -438,143 +467,78 @@
           <span id="quantity" class="text-lg font-semibold">1</span>
           <button onclick="increaseQuantity()" class="bg-gray-200 px-3 py-1 rounded-lg">+</button>
         </div>
-        <button onclick="confirmAddToOrder()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-[#cf212a]">Add to Orders</button>
+        <button onclick="confirmAddToOrder()" class="w-full bg-blue-500 text-black px-4 py-2 rounded-lg hover:bg-[#cf212a]">Add to Orders</button>
       </div>
     </div>
     
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-<footer class="bg-white mt-10">
-  <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-      <div class="md:flex md:justify-between">
-        <div class="mb-6 md:mb-0">
-          <h1 class="text-xl font-bold text-white">FOLLOW US</h1>
 
-
-          <div class="flex space-x-4 items-center mt-2">
-            <a href="https://www.facebook.com/">
-              <i class="fa-brands fa-facebook-f text-2xl"></i>
-            </a>
-            <a href="https://www.threads.com/?hl=en">
-              <i class="fa-brands fa-threads text-2xl"></i>
-            </a>          
-            <a href="https://www.instagram.com/">
-              <i class="fa-brands fa-instagram text-2xl"></i>
-            </a>
+      <footer class="bg-white mt-10">
+        <div class="p-4 py-6 lg:py-8"></div>
+          <div class="md:flex md:justify-between">
+            <div class="mb-6 md:mb-0">
+              <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">ABOUT NEARBUY</h2>
+              <div class="flex space-x-4">
+                <a href="https://www.facebook.com/">
+                  <i class="fa-brands fa-facebook-f text-2xl"></i>
+                </a>
+                <a href="https://www.threads.com/?hl=en">
+                  <i class="fa-brands fa-threads text-2xl"></i>
+                </a>          
+                <a href="https://www.instagram.com/"></a>
+                  <i class="fa-brands fa-instagram text-2xl"></i>
+                </a>
+              </div>
+            </div>
+                  
+            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+              <div>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">ABOUT NEARBUY</h2>
+                <ul class="text-gray-600 font-medium">
+                  <li>
+                    <a href="#" class="hover:underline dark:text-black">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+                    
+              <div>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">Customer Service</h2>
+                <ul class="text-gray-600 font-medium">
+                  <li class="mb-4">
+                    <a href="index.html" class="hover:underline dark:text-black">Help centre</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:underline dark:text-black">Contact Us</a>
+                  </li>
+                </ul>
+              </div>
+                    
+              <div>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">Payment</h2>
+                <ul class="text-gray-600 font-medium">
+                  <li class="mb-4">
+                    <img src="./assets/paymongo.png" alt="Paymongo" class="h-10 w-20">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+                
+          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <div class="sm:flex sm:items-center sm:justify-end mb-6 ">
+              <span class="text-sm text-gray-500 sm:text-right dark:text-black">
+                © 2025 <a href="index.html" class="hover:underline">NearBuy™</a>. All Rights Reserved.
+              </span>
           </div>
 
-        </div>
-        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-            <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">ABOUT NEARBUY</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="https://flowbite.com/" class="hover:underline dark:text-white">About us</a>
-                    </li>
-                    <li>
-                        <a href="https://tailwindcss.com/" class="hover:underline dark:text-white">Privacy Policy</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Customer Service</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="index.php" class="hover:underline dark:text-white ">Help centre</a>
-                    </li>
-                    <li>
-                        <a href="https://discord.gg/4eeurUVvTy" class="hover:underline dark:text-white">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Payment</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                       <img src="./assets/paymongo.png" alt="Paymongo" class="h-10 w-20">
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-    <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-white">© 2025 <a href="index.php" class="hover:underline">NearBuy™</a>. All Rights Reserved.
-        </span>
-  </div>
-</footer>
+      </footer>
 
-
-<script>
-
-        let orders = [];
-        let selectedProduct = {};
-        let quantity = 1;
-
-        function openPopup(productName, productPrice) {
-          selectedProduct = { name: productName, price: productPrice };
-          quantity = 1;
-          document.getElementById('popupProductName').textContent = productName;
-          document.getElementById('popupProductPrice').textContent = `₱${productPrice.toFixed(2)}`;
-          document.getElementById('quantity').textContent = quantity;
-          document.getElementById('popupModal').classList.remove('hidden');
-        }
-
-        function closePopup() {
-          document.getElementById('popupModal').classList.add('hidden');
-        }
-
-        function increaseQuantity() {
-          quantity++;
-          document.getElementById('quantity').textContent = quantity;
-        }
-
-        function decreaseQuantity() {
-          if (quantity > 1) {
-            quantity--;
-            document.getElementById('quantity').textContent = quantity;
-          }
-        }
-
-        function confirmAddToOrder() {
-          for (let i = 0; i < quantity; i++) {
-            orders.push(selectedProduct);
-          }
-          alert(`${selectedProduct.name} (x${quantity}) added to Orders`);
-          console.log("Current Orders:", orders);
-          renderOrders();
-          closePopup();
-        }
-
-        function addToOrder(productName, productPrice) {
-          const cartCountSpan = document.getElementById('cart-icons');
-          let count = parseInt(cartCountSpan.textContent) || 0;
-          count += 1;
-          cartCountSpan.textContent = count;
-
-          // Add product to orders array
-          orders.push({ name: productName, price: productPrice });
-          console.log("Added to cart:", productName, "Price:", productPrice);
-          renderOrders();
-        }
-
-        function renderOrders() {
-          // Assuming you have a container to render your orders
-          const orderList = document.getElementById('orderList');
-          orderList.innerHTML = ''; // Clear previous list
-
-          orders.forEach(order => {
-            const orderItem = document.createElement('li');
-            orderItem.textContent = `${order.name} - ₱${order.price.toFixed(2)}`;
-            orderList.appendChild(orderItem);
-          });
-        }
-
-</script>
-
-
-
-  
-
-  </body>
-</html>
+    </body>
+    <script src="./js/index_function.js" defer></script>
+  </html>
