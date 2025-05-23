@@ -46,3 +46,18 @@ body{
 .socmed:hover{
     color: #CC2119;
 }
+.cartss{
+    background-color: #F6CD13;
+}
+thead{
+    background-color: #CC2119;
+}
+.cart-items{
+    background-color: #F6CD13;
+}
+#voucher-btn:hover{
+    background-color: #CC2119;
+}
+#checkout-btn:hover{
+    background-color: #CC2119;
+}

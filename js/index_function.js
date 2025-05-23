@@ -4,6 +4,11 @@ let quantity = 1;
 let selectedProduct = null;
 let cartCount = 0;
 
+// Initialize cart count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('cart-icons').textContent = cartCount;
+});
+
 // Product prices array
 const productPrices = [
     { name: "Inabal Weaving", price: 1500.00 },
@@ -220,7 +225,7 @@ function removeOrder(productName) {
 function addToOrder(productName) {
     const product = productPrices.find(item => item.name === productName);
     if (product) {
-        openPopup(product.name, product.price);
+        openPopup(productName, product.price);
     } else {
         alert("Product not found!");
     }
