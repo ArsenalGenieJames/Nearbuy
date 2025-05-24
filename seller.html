@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Seller</title>
+</head>
+<body>
+    <nav>
+        <div class="flex justify-between items-center p-4 bg-red-600 shadow-md">
+            <div class="flex items-center">
+                <span class="text-xl font-bold text-white">NearBuy</span>  
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative inline-block text-white">
+                    <button id="menuButton" class="flex items-center space-x-1 hover:text-gray-200">
+                        <span id="sellerName" class="uppercase">Seller Name</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                        <a href="store.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Store</a>
+                        <a href="settings.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Settings</a>
+                        <div class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white cursor-pointer" id="logoutBtn">Logout</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<div class="container mx-auto mt-10 px-4">
+    <!-- Responsive navigation buttons -->
+    <div class="flex flex-wrap justify-center gap-3">
+        <div onclick="handleClick('AddProducts')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">Add Products</div>
+        <div onclick="handleClick('ViewProducts')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">View Products</div>
+        <div onclick="handleClick('ViewOrders')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">View Orders</div>
+        <div onclick="handleClick('ViewCustomers')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">View Customers</div>
+        <div onclick="handleClick('ViewFeedback')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">View Feedback</div>
+        <div onclick="handleClick('ViewVouchers')" class="p-3  sm:w-[12rem] text-center bg-[#CC2119] rounded-lg text-white uppercase cursor-pointer hover:bg-[#F6CD13] transition-colors">View Vouchers</div>
+    </div>
+
+    <!-- Add Products Section -->
+    <div class="mt-10 category-section hidden" id="addProductsForm">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">Product Information</h2>
+
+            <div class="flex flex-col lg:flex-row justify-center gap-6">
+                <!-- Image Upload Section -->
+                <div class="w-full lg:w-1/2 max-w-md mx-auto">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <img src="./assets/img/nearbuy_primary_logo.png" 
+                             alt="Product Preview" 
+                             class="w-full h-48 sm:h-64 object-cover rounded-lg mb-4 border-2 border-dashed border-gray-300" 
+                             id="productImage">
+                        
+                        <div class="mt-4">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700" for="file_input">
+                                Upload Product Image
+                            </label>
+                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white p-2 hover:bg-[#CC2119] transition-colors focus:outline-none focus:border-red-500" 
+                                   id="file_input" 
+                                   type="file"
+                                   accept="image/*"
+                                   onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])">
+                            <p class="mt-1 text-xs sm:text-sm text-gray-500">PNG, JPG or GIF (MAX. 800x400px)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Details Section -->
+                <div class="w-full lg:w-1/2 max-w-md mx-auto mt-6 lg:mt-0">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <form class="space-y-4" id="addProductForm">
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Product Name</label>
+      <input type="text" name="productName" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+    </div>
+    <div>
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Price</label>
+      <input type="number" name="price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+    </div>
+    <div>
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Size</label>
+      <input type="text" name="size" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+    </div>
+    <div>
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Quantity</label>
+      <input type="number" name="quantity" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+    </div>
+    <div>
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Weight</label>
+      <input type="number" name="weight" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+    </div>
+  </div>
+  <div>
+    <label class="block mb-2 text-sm font-semibold text-gray-700">Category</label>
+    <select name="productType" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+      <option value="">Select a category</option>
+      <option value="pagkaon">Pagkaon</option>
+      <option value="butang">Butang</option>
+    </select>
+  </div>
+  <div>
+    <label class="block mb-2 text-sm font-semibold text-gray-700">Description</label>
+    <textarea name="description" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500" rows="4"></textarea>
+  </div>
+  <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+    Add Product
+  </button>
+</form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other sections with responsive classes -->
+    <div class="mt-10 category-section hidden p-4" id="viewProductsSection">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Products</h2>
+        </div>
+    </div>
+
+    <div class="mt-10 category-section hidden p-4" id="viewOrdersSection">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Orders</h2>
+        </div>
+    </div>
+
+    <div class="mt-10 category-section hidden p-4" id="viewCustomersSection">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Customers</h2>
+        </div>
+    </div>
+
+    <div class="mt-10 category-section hidden p-4" id="viewFeedbackSection">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Feedback</h2>
+        </div>
+    </div>
+
+    <div class="mt-10 category-section hidden p-4" id="viewVouchersSection">
+        <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Vouchers</h2>
+        </div>
+    </div>
+</div>
+
+<script src="./js/logout.js"></script>
+<script src="./js/seller.js"></script>
+<script src="./js/supabase.js"></script>
+</body>
+</html>

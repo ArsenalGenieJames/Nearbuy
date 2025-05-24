@@ -6,7 +6,7 @@ form.addEventListener("submit", async (e) => {
     const password = document.getElementById("password-login").value;
 
     try {
-        const { data: { user }, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email,
             password
         });
@@ -38,7 +38,13 @@ form.addEventListener("submit", async (e) => {
         }
 
     } catch (error) {
-        alert('Error logging in: ' + error.message);
+        if (error.message.includes("Invalid login credentials")) {
+            alert("❌ Invalid email or password. Please try again.");
+        } else if (error.message.includes("Email not confirmed")) {
+            alert("📧 Please check your email and click the confirmation link first.");
+        } else {
+            alert('Error logging in: ' + error.message);
+        }
         console.error('Login error:', error);
     }
 });

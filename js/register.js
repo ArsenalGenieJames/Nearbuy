@@ -25,7 +25,7 @@ signupForm.addEventListener('submit', async (e) => {
             .insert([
                 {
                     email: email,
-                    password: password, // Note: Consider if you really need to store password here since Supabase Auth already handles this
+                    password: password, 
                     firstname: firstName,
                     lastname: lastName,
                     phone_number: phoneNumber,
@@ -49,7 +49,7 @@ signupForm.addEventListener('submit', async (e) => {
                 window.location.href = "seller.html";
                 break;
             default:
-                alert("❌ Unknown user type!");
+                alert("Unknown user type!");
         }
 
     } catch (error) {
