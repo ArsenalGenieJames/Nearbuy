@@ -62,20 +62,42 @@ function initializeCategorySections() {
 function handleClick(category) {
     console.log('Category clicked:', category);
     const categorySections = document.querySelectorAll('.category-section');
+    const carousel = document.querySelector('.container.mx-auto.px-4'); // Select the carousel container
     
+    // Hide all category sections first
     categorySections.forEach(section => {
         section.style.display = 'none';
     });
     
-    const selectedSection = Array.from(categorySections).find(section => {
-        const heading = section.querySelector('h1');
-        return heading && heading.textContent.includes(`Local ${category}`);
-    });
-    
-    if (selectedSection) {
-        selectedSection.style.display = 'block';
+    if (category === 'cart') {
+        // Hide the carousel when showing cart
+        if (carousel) {
+            carousel.style.display = 'none';
+        }
+        
+        // Show the cart section
+        const cartSection = document.getElementById('cart-container');
+        if (cartSection) {
+            cartSection.style.display = 'block';
+        }
+    } else {
+        // Show the carousel for other categories
+        if (carousel) {
+            carousel.style.display = 'block';
+        }
+        
+        // Show the selected category section
+        const selectedSection = Array.from(categorySections).find(section => {
+            const heading = section.querySelector('h1');
+            return heading && heading.textContent.includes(`Local ${category}`);
+        });
+        
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+        }
     }
 }
+
 
 // Open popup
 function openPopup(productName, productPrice) {
@@ -137,58 +159,58 @@ function confirmAddToOrder() {
 
 // Render orders
 function renderOrders() {
-    const ordersList = document.getElementById('ordersList');
-    if (!ordersList) return;
+    const cartItems = document.getElementById('cart-items');
+    if (!cartItems) return;
     
-    ordersList.innerHTML = '';
+    cartItems.innerHTML = '';
     const orderSummary = {};
 
+    // Group orders by product name
     orders.forEach(order => {
         if (orderSummary[order.name]) {
             orderSummary[order.name].quantity++;
+            orderSummary[order.name].total = orderSummary[order.name].price * orderSummary[order.name].quantity;
         } else {
-            orderSummary[order.name] = { price: order.price, quantity: 1 };
+            orderSummary[order.name] = {
+                price: order.price,
+                quantity: 1,
+                total: order.price
+            };
         }
     });
 
-    let total = 0;
+    let grandTotal = 0;
 
+    // Create table rows for each product
     Object.keys(orderSummary).forEach(productName => {
-        const { price, quantity } = orderSummary[productName];
-        const orderItem = document.createElement('div');
-        orderItem.className = 'border-b pb-2 mb-2';
-
-        // Get product image source from popup modal
-        const productImage = document.getElementById('popupProductImage').src;
-
-        orderItem.innerHTML = `
-            <div class="flex w-full">
-                <div class="w-24 h-24 mr-4">
-                    <img src="${productImage}" alt="${productName}" class="w-full h-full object-cover rounded-lg">
-                </div>
-                <div class="flex flex-col flex-grow">
-                    <div class="flex justify-between items-center">
-                        <span>${productName} (x${quantity})</span>
-                        <div class="flex space-x-2">
-                            <button onclick="decreaseOrderQuantity('${productName}')" class="bg-gray-200 px-2 py-1 rounded-lg">-</button>
-                            <button onclick="increaseOrderQuantity('${productName}')" class="bg-gray-200 px-2 py-1 rounded-lg">+</button>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span>₱${(price * quantity).toFixed(2)}</span>
-                            <button onclick="removeOrder('${productName}')" class="text-red-500 hover:underline">Remove</button>
-                        </div>
-                    </div>
-                    <div class="text-right text-sm text-gray-500 mt-1">
-                        Total: ₱${(price * quantity).toFixed(2)}
-                    </div>
-                </div>
-            </div>
+        const { price, quantity, total } = orderSummary[productName];
+        const row = document.createElement('tr');
+        row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700';
+        
+        row.innerHTML = `
+            <td class="px-6 py-4 text-white">${productName}</td>
+            <td class="px-6 py-4 text-white">${quantity}</td>
+            <td class="px-6 py-4 text-white">₱${price.toFixed(2)}</td>
+            <td class="px-6 py-4 text-white">₱${total.toFixed(2)}</td>
         `;
-
-        ordersList.appendChild(orderItem);
-        total += price * quantity;
+        
+        cartItems.appendChild(row);
+        grandTotal += total;
     });
+
+    // Update total in cart
+    const cartTotal = document.getElementById('cart-total');
+    if (cartTotal) {
+        cartTotal.textContent = `₱${grandTotal.toFixed(2)}`;
+    }
+
+    // Show/hide empty cart alert
+    const alertElement = document.getElementById('alert-additional-content-2');
+    if (alertElement) {
+        alertElement.style.display = orders.length === 0 ? 'block' : 'none';
+    }
 }
+
 
 // Decrease order quantity
 function decreaseOrderQuantity(productName) {

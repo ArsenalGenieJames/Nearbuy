@@ -4,10 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/index_function.js" defer></script>
+    <script src="./js/supabase.js" type="module"></script>
+    <script src="./js/index_function.js" type="module" defer></script>
     <title>Nearbuy</title>
 </head>
 <body>
@@ -43,11 +45,11 @@
       </div>
 
       <div class="flex items-center space-x-6 rtl:space-x-reverse">
-        <a href="cart.html">
+        <div onclick="handleClick('cart')" class="relative">
           <i class="fa-solid fa-cart-shopping cursor-pointer" style="color: #F6CD13;">
             <span id="cart-icons">0</span>
           </i>
-        </a>
+        </div>
         
         <a href="register.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
         <a href="login.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
@@ -478,6 +480,234 @@
 </div>
 </div>
 
+
+      <!-- Cart Section -->
+    <div class="container mx-auto mt-5 category-section" id="cart-container">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 cartss">
+            <h1 class="text-2xl font-bold">Cart</h1>
+        </div>
+
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <div class="w-full">
+                <table class="cart-items w-full">
+                    <thead class="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-white">Product name</th>
+                            <th scope="col" class="px-6 py-3 text-white">Quantity</th>
+                            <th scope="col" class="px-6 py-3 text-white">Price</th>
+                            <th scope="col" class="px-6 py-3 text-white">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Cart items will be dynamically added here -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-semibold text-gray-900 dark:text-white">
+                            <td class="px-6 py-3"></td>
+                            <td class="px-6 py-3"></td>
+                            <td class="px-6 py-3 text-right">Total:</td>
+                            <td class="px-6 py-3" id="cart-total">$0.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="flex justify-end w-full mt-4">
+                <button id="voucher-btn" 
+                    class="px-6 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 mr-5">
+                    Voucher
+                </button>
+
+                <button id="checkout-btn" 
+                    class="px-6 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- checkout modal -->
+    <div id="checkout-modal" class="container mx-auto mt-5" style="display:none">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 cartss">
+            <h1 class="text-2xl font-bold">Checkout</h1>
+        </div>
+
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <div class="w-full">
+                <table class="cart-items w-full">
+                    <thead class="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-white">Product Ordered</th>
+                            <th scope="col" class="px-6 py-3 text-white">Quantity</th>
+                            <th scope="col" class="px-6 py-3 text-white">Price</th>
+                            <th scope="col" class="px-6 py-3 text-white">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Cart items will be dynamically added here -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-semibold text-gray-900 dark:text-white">
+                            <td class="px-6 py-3"></td>
+                            <td class="px-6 py-3"></td>
+                            <td class="px-6 py-3"></td>
+                            <td class="px-6 py-3"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="w-full">
+
+                <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl mt-2">
+                    <div class="w-full mt-1 flex justify-end">
+                        <b class="text-left cursor-pointer mr-5 hover:text-[#CC2119] select-address">Select Address</b>
+                        <b class="text-right cursor-pointer hover:text-[#CC2119]">Select Voucher</b>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                    <div class="w-full mt-1 flex flex-col items-end">
+                        <p class="text-right mb-2">Merchandise Total: <span id="merchandise-total">$0.00</span></p>
+                        <p class="text-right mb-2">Shipping Fee: <span id="shipping-fee">$0.00</span></p>
+                        <p class="text-right mb-2">Voucher Discount: <span id="voucher-discount">$0.00</span></p>
+                        <p class="text-right font-bold">Total Payment: <span id="cart-total">$0.00</span></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+<!-- address modal -->
+    <div id="address-list-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg w-96 relative">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Available Addresses</h3>
+                <button onclick="closeAddressModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4 max-h-60 overflow-y-auto">
+                <div class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold">Home</h4>
+                            <p class="text-sm text-gray-600">123 Main Street, Apt 4B</p>
+                            <p class="text-sm text-gray-600">New York, NY 10001</p>
+                        </div>
+                        <button class="px-4 py-2 bg-[#F6CD13] hover:bg-[#CC2119] text-white rounded-lg">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold">Office</h4>
+                            <p class="text-sm text-gray-600">456 Business Ave, Suite 200</p>
+                            <p class="text-sm text-gray-600">New York, NY 10002</p>
+                        </div>
+                        <button class="px-4 py-2 bg-[#F6CD13] hover:bg-[#CC2119] text-white rounded-lg">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold">Parents' House</h4>
+                            <p class="text-sm text-gray-600">789 Family Road</p>
+                            <p class="text-sm text-gray-600">New York, NY 10003</p>
+                        </div>
+                        <button class="px-4 py-2 bg-[#F6CD13] hover:bg-[#CC2119] text-white rounded-lg">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <!-- dynamic address -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Voucher Modal -->
+    <div id="voucher-list-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg w-96 relative">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Available Vouchers</h3>
+                <button onclick="closeVoucherModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="flex gap-2">
+                    <input type="text" class="w-full p-2 border rounded-lg" placeholder="Enter Voucher Code">
+                </div>
+                
+                <div class="max-h-60 overflow-y-auto">
+                    <div class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer mb-3">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">10% OFF</h4>
+                                <p class="text-sm text-gray-600">Min. purchase $50</p>
+                            </div>
+                            <button class="px-4 py-2 bg-[#F6CD13] hover:bg-[#CC2119] text-white rounded-lg">
+                                Use
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">$5 OFF</h4>
+                                <p class="text-sm text-gray-600">Min. purchase $30</p>
+                            </div>
+                            <button class="px-4 py-2 bg-[#F6CD13] hover:bg-[#CC2119] text-white rounded-lg">
+                                Use
+                            </button>
+                        </div>
+                    </div>2
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="alert-additional-content-2" class="p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert" style="display: none;">
+            <div class="flex items-center">
+            <svg class="shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <h3 class="text-lg font-medium">Please Select a Product</h3>
+            </div>
+            <div class="mt-2 mb-4 text-sm">
+            You must select at least one product before proceeding to checkout. Please add items to your cart to continue with your purchase.
+            </div>
+            <div class="flex">
+            <a href="index.html" class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+                </svg>
+                Browse Products
+            </a>
+            <button type="button" onclick="document.getElementById('alert-additional-content-2').style.display='none'" class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800">
+                Dismiss
+            </button>
+            </div>
+      </div>
 
       <footer class="bg-white mt-10">
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

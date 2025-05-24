@@ -1,10 +1,11 @@
-
 <!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -14,51 +15,46 @@
     <title>Register Account</title>
   </head>
   <body>  
+
     <div class="flex h-screen flex-col md:flex-row">
       <div class="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-100 p-8 h-screen">
         <h2 class="text-2xl font-bold text-center w-full">Register</h2>
-        <form  class="w-full max-w-sm mt-2" method="POST">
-          <div class="mb-4">
-            <input type="text" id="firstname" name="firstname" placeholder="First Name" required 
-              class="w-full p-2 border border-gray-300 rounded"/>
-          </div>
-          <div class="mb-4">
-            <input type="text" id="lastname" name="lastname" placeholder="Last Name" required 
-              class="w-full p-2 border border-gray-300 rounded"/>
-          </div>
-          <div class="mb-4">
-            <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required 
-              class="w-full p-2 border border-gray-300 rounded"/>
-          </div>
-          <div class="mb-4">
-            <input type="text" id="address" name="address" placeholder="Address" required 
-              class="w-full p-2 border border-gray-300 rounded"/> 
-          </div>
-          <div class="mb-4">
-            <input type="email" id="email" name="email" placeholder="Email" required 
-              class="w-full p-2 border border-gray-300 rounded"/>
-          </div>
-          <div class="mb-4">
-            <input type="password" id="password" name="password" placeholder="Password" required 
-              class="w-full p-2 border border-gray-300 rounded"/>
-          </div>
-          
-          <select id="usertype" name="usertype" required class="w-full p-2 mb-4 border rounded">
-            <option value="">-- SELECT USER --</option>
-            <option value="seller">Seller</option>
-            <option value="customer">Customer</option>
-            <option value="rider">Rider</option>
-          </select>
+        <form id="signup-form" class="w-full max-w-sm mt-2">
+        <div class="mb-4">
+          <input type="text" id="firstname" placeholder="First Name" required class="w-full p-2 border border-gray-300 rounded"/>
+        </div>
+        <div class="mb-4">
+          <input type="text" id="lastname" placeholder="Last Name" required class="w-full p-2 border border-gray-300 rounded"/>
+        </div>
+        <div class="mb-4">
+          <input type="number" id="phonenumber" placeholder="Phone Number" required class="w-full p-2 border border-gray-300 rounded"/>
+        </div>
+        <div class="mb-4">
+          <input type="text" id="address" placeholder="Address" required class="w-full p-2 border border-gray-300 rounded"/> 
+        </div>
+        <div class="mb-4">
+          <input type="email" id="email-signup" placeholder="Email" required class="w-full p-2 border border-gray-300 rounded"/>
+        </div>
+        <div class="mb-4">
+          <input type="password" id="password-signup" placeholder="Password" required class="w-full p-2 border border-gray-300 rounded"/>
+        </div>
+        
+        <select id="userType" required class="w-full p-2 mb-4 border rounded">
+          <option value="">-- SELECT USER --</option>
+          <option value="seller" id="seller">Seller</option>
+          <option value="customer" id="customer">Customer</option>
+          <option value="rider" id="rider">Rider</option>
+        </select>
 
         <div class="flex flex-col items-center space-y-4">
           <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded loginbutton">Sign Up</button> 
-          <p class="dha text-center">
+          <p class="text-gray-600 text-center dha">
             Already have an account? 
-          <a class='text-[#CC2119]' href='./login.html'>Sign up</a>
+          <a href="login.html" class="text-blue-500 hover:text-[#CC2119]">Sign up</a>
           </p>
         </div>
         </form>
-      </div> 
+      </div>
   
         <!-- pag mobile size ni mawal ni siya (will be hidden) -->
           <div class="w-1/2 relative hidden md:block">
@@ -76,5 +72,7 @@
       </div>
   
 
+      <script src="./js/register.js"></script>
+      <script src="./js/supabase.js"></script>
   </body>
 </html>
