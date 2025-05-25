@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Seller Settings</title>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <nav>
+        <div class="flex flex-col sm:flex-row justify-between items-center p-4 bg-red-600 shadow-md gap-2">
+            <div class="flex items-center">
+                <span class="text-xl font-bold text-white">NearBuy</span>
+            </div>
+            <div class="flex items-center space-x-0 sm:space-x-4 w-full sm:w-auto justify-end">
+                <div class="relative inline-block text-white w-full sm:w-auto">
+                    <button id="menuButton" class="flex items-center space-x-1 hover:text-gray-200 w-full sm:w-auto justify-between sm:justify-start">
+                        <span id="sellerName" class="uppercase truncate max-w-[10rem] sm:max-w-none">Seller Name</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                        <a href="store.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Store</a>
+                        <a href="settings.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Settings</a>
+                        <div class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white cursor-pointer" onclick="logout()">Logout</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-10 px-2">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Seller Settings -->
+            <div class="flex-1 bg-white rounded-lg shadow-lg p-4 sm:p-8">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">Seller Settings</h2>
+                <form id="sellerSettingsForm" class="space-y-6">
+                    <div>
+                        <div class="flex justify-center mb-2">
+                            <img id="profilePreview" src="./assets/img/nearbuy_primary_logo.png" alt="Profile" class="h-48 w-48 sm:w-16 sm:h-16 rounded-full object-cover border border-[#F6CD13] mb-2">
+                        </div>
+                        <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center">
+                            <label for="profile_picture" class="flex items-center cursor-pointer px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                                <span class="mr-2 text-lg font-bold">+</span>
+                                <span class="text-sm">Upload Profile Picture</span>
+                            </label>
+                            <input type="file" id="profile_picture" accept="image/*" class="hidden">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="firstname">First Name</label>
+                            <input type="text" id="firstname" name="firstname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="lastname">Last Name</label>
+                            <input type="text" id="lastname" name="lastname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" required disabled>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="phone_number">Phone Number</label>
+                            <input type="text" id="phone_number" name="phone_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="address2">Seller Address</label>
+                            <textarea id="address" name="address" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 resize-none" placeholder="Apartment, suite, etc. (optional)"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors w-full sm:w-auto">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Store Settings -->
+            <div class="flex-1 bg-white rounded-lg shadow-lg p-4 sm:p-8">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">Store Settings</h2>
+                <form id="storeSettingsForm" class="space-y-6">
+                    <div>
+                        <div class="flex justify-center mb-2">
+                            <img id="storeProfilePreview" src="./assets/img/nearbuy_primary_logo.png" alt="Store Profile" class="h-48 w-48 sm:w-16 sm:h-16 rounded-full object-cover border border-[#F6CD13] mb-2">
+                        </div>
+                        <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center">
+                            <label for="profile_store" class="flex items-center cursor-pointer px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                                <span class="mr-2 text-lg font-bold">+</span>
+                                <span class="text-sm">Upload Store Profile</span>
+                            </label>
+                            <input type="file" id="profile_store" accept="image/*" class="hidden">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="store_name">Store Name</label>
+                            <input type="text" id="store_name" name="store_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" for="location">Store Location</label>
+                            <input type="text" id="location" name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" for="ratings">Store Ratings</label>
+                        <span id="ratings" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 px-3 py-2">4.75</span>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors w-full sm:w-auto">Save Store Settings</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-opacity-50 hidden overflow-y-auto h-full w-full flex items-center justify-center z-50">
+        <div class="p-5 border w-[90vw] max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-2">Success!</h3>
+                <p class="text-sm text-gray-500 mb-4" id="successMessage">Settings updated successfully!</p>
+                <button onclick="closeSuccessModal()" class="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-opacity-50 hidden overflow-y-auto h-full w-full flex items-center justify-center z-50">
+        <div class="p-5 border w-[90vw] max-w-md shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-2">Error</h3>
+                <p class="text-sm text-gray-500 mb-4" id="errorMessage">Failed to upload profile picture.</p>
+                <button onclick="closeErrorModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/seller_settings.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/logout.js"></script>
+    <script src="./js/supabase.js"></script>
+</body>
+</html>
