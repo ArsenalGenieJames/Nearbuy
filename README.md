@@ -119,16 +119,15 @@ NearBuy/
 
 ### Cardinality and Relationships
 
-| Table        | Key Columns                         | Relationships (Foreign Keys)                          | Relationship Type                       | Cardinality                              |  
-|--------------|-------------------------------------|--------------------------------------------------------|------------------------------------------|------------------------------------------|  
-| **users**   | id (PK)                             | -                                                      | -                                        | -                                        |  
-| **orders**  | id (PK)                             | user_id → users(id)                                    | Many orders to 1 user                   | Many-to-One (many orders per user)      |  
-| **products**| id (PK)                             | seller_id → users(id)                                  | Many products to 1 seller               | Many-to-One (many products per seller)|  
-| **stores**  | id (PK)                             | product_id → products(id)                              | Each store linked to 1 product           | One-to-One or Many stores per product (if multiple records) |  
-| **ordered** | id (PK)                             | orders_id → orders(id), product_id → products(id)    | Many ordered entries per order and product | Many-to-One (many ordered records per order/product) |  
-| **deliveries** | id (PK)                          | order_id → orders(id), rider_id & seller_id → users(id) | Delivery linked to 1 order, rider, seller | Many deliveries per order/rider/seller |  
-| **feedback**| id (PK)                             | user_id → users(id)                                    | Many feedback entries per user          | Many-to-One (many feedbacks per user) |  
-| **vouchers**| id (PK)                             | user_id → users(id)                                    | Many vouchers per user                  | Many-to-One (many vouchers per user) |  
+| Entity        | Related Entity | Relationship Type                     | Cardinality                                     | Notes                                                                 |
+|---------------|----------------|---------------------------------------|-------------------------------------------------|-----------------------------------------------------------------------|
+| **users**     | **orders**     | One-to-Many                           | 1 user (customer) to many orders                | A customer (usertype) can place many orders.                          |
+| **users**     | **products**   | One-to-Many (via seller_id)           | 1 seller to many products                       | A seller (usertype) can create many products.                         |
+| **users**     | **feedback**   | One-to-Many                           | 1 user (customer or seller) to many feedback    | Users can leave multiple feedback entries.                            |
+| **users**     | **deliveries** | One-to-Many (rider role)              | 1 rider to many deliveries                      | A rider (usertype) can deliver multiple orders.                       |
+| **orders**    | **deliveries** | One-to-One / One-to-Many              | Typically one delivery per order                | Each order is linked to a delivery, most likely one-to-one.           |
+| **products**  | **ordered**    | One-to-Many                           | 1 product to many ordered entries               | An individual product can be ordered multiple times.                  |
+| **users**     | **vouchers**   | One-to-Many                           | 1 customer to many vouchers                     | Customers can have multiple vouchers.                                 |
 
 #### Notes:
 - One-to-Many: Typically, one user can have many orders, feedback, or vouchers.
@@ -173,11 +172,9 @@ NearBuy/
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
+## Project Developer
 
 Genie James Arsenal - geniejamesarsenal.202300349@gmail.com
 Project Link: https://nearbuys.netlify.app/

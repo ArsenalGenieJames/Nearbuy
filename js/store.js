@@ -11,6 +11,80 @@ function checkUserAccess() {
 }
 
 
+
+// Handle category click
+function handleClick(category) {
+    console.log('Category clicked:', category);
+    const categorySections = document.querySelectorAll('.category-section');
+    const carousel = document.querySelector('.container.mx-auto.px-4'); // Select the carousel container
+
+    // Hide all category sections first
+    categorySections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Hide the checkout modal whenever a category is clicked
+    // Assuming checkoutModal is a globally accessible DOM element variable
+    if (typeof checkoutModal !== 'undefined' && checkoutModal) {
+        checkoutModal.style.display = 'none';
+    }
+
+    // Assuming cartSection is a globally accessible DOM element variable
+    const cartSectionElement = typeof cartSection !== 'undefined' ? cartSection : null;
+
+    if (category === 'cart') {
+        // Hide the carousel when showing cart
+        if (carousel) {
+            carousel.style.display = 'none';
+        }
+
+        // Show the cart section
+        if (cartSectionElement) {
+            cartSectionElement.style.display = 'block';
+        }
+    } else {
+        // Show the carousel for other categories
+        if (carousel) {
+            carousel.style.display = 'block';
+        }
+
+        // Find and show the selected category section
+        // Ensure it's not the cart section itself, even if it has the class
+        // Use strict equality check for the heading text content to ensure only the exact category is matched
+        const selectedSection = Array.from(categorySections).find(section => {
+            const heading = section.querySelector('h1');
+            // Check if the section has an h1 and its text is exactly "Local [CategoryName]"
+            // Also ensure it's not the cart section itself by ID
+            return heading && heading.textContent.trim() === `Local ${category}` && section.id !== 'cart-container';
+        });
+
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+        } else {
+            // Optional: Handle case where no matching category section is found
+            console.warn(`No section found for category: ${category}`);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Variable to hold the Supabase subscription
 let productsSubscription = null;
 
@@ -74,7 +148,7 @@ async function fetchAndRenderProducts() {
 
         return `
           <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
-            <a href="#product-details-${product.id}"> <!-- Added unique ID to link -->
+            <a href="product-details.html-${product.id}"> <!-- Added unique ID to link -->
               <img src="${imageUrl}" alt="${product.product_name}" class="w-full h-48 object-cover">
             </a>
             <div class="p-4">
@@ -131,4 +205,43 @@ async function fetchAndRenderProducts() {
       setupRealtimeSubscription();
   });
 
+  
+
+  async function fetchAndRenderProducts() {
+    const { data: products, error } = await supabase
+      .from('products')
+      .select(`
+        *,
+        users:users!products_seller_id_fkey(usertype)
+      `)
+      .eq('users.usertype', 'seller');
+  
+    if (error) {
+      console.error('Error fetching products:', error);
+      return;
+    }
+  
+    // ✅ Async map to get public URLs
+    const productsWithPublicUrls = await Promise.all(products.map(async (product) => {
+      let publicImageUrl = '/assets/img/placeholder.png';
+  
+      if (product.image_url) {
+        const { data, error } = supabase
+          .storage
+          .from('product-images') // make sure this is your bucket name
+          .getPublicUrl(product.image_url);
+  
+        if (data?.publicUrl) {
+          publicImageUrl = data.publicUrl;
+        } else {
+          console.warn(`Could not get public URL for image path: ${product.image_url}`, error);
+        }
+      }
+  
+      return { ...product, publicImageUrl };
+    }));
+  
+    renderProductsByType(productsWithPublicUrls, 'butang');
+    renderProductsByType(productsWithPublicUrls, 'pagkaon');
+  }
   
