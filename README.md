@@ -115,6 +115,26 @@ NearBuy/
 └── README.md
 ```
 
+## Database Structure
+
+### Cardinality and Relationships
+
+| Table        | Key Columns                         | Relationships (Foreign Keys)                          | Relationship Type                       | Cardinality                              |  
+|--------------|-------------------------------------|--------------------------------------------------------|------------------------------------------|------------------------------------------|  
+| **users**   | id (PK)                             | -                                                      | -                                        | -                                        |  
+| **orders**  | id (PK)                             | user_id → users(id)                                    | Many orders to 1 user                   | Many-to-One (many orders per user)      |  
+| **products**| id (PK)                             | seller_id → users(id)                                  | Many products to 1 seller               | Many-to-One (many products per seller)|  
+| **stores**  | id (PK)                             | product_id → products(id)                              | Each store linked to 1 product           | One-to-One or Many stores per product (if multiple records) |  
+| **ordered** | id (PK)                             | orders_id → orders(id), product_id → products(id)    | Many ordered entries per order and product | Many-to-One (many ordered records per order/product) |  
+| **deliveries** | id (PK)                          | order_id → orders(id), rider_id & seller_id → users(id) | Delivery linked to 1 order, rider, seller | Many deliveries per order/rider/seller |  
+| **feedback**| id (PK)                             | user_id → users(id)                                    | Many feedback entries per user          | Many-to-One (many feedbacks per user) |  
+| **vouchers**| id (PK)                             | user_id → users(id)                                    | Many vouchers per user                  | Many-to-One (many vouchers per user) |  
+
+#### Notes:
+- One-to-Many: Typically, one user can have many orders, feedback, or vouchers.
+- Many-to-One: Many records in child tables point to a single parent (e.g., many products for one seller).
+- One-to-One / Many: Stores linked to products may suggest multiple stores for one product or vice versa depending on additional data constraints.
+
 ## Usage Guide
 
 ### Seller Dashboard
