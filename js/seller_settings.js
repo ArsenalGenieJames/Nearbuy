@@ -68,14 +68,39 @@ document.addEventListener('DOMContentLoaded', function () {
             const phone_number = document.getElementById('phone_number').value.trim();
             const address = document.getElementById('address') ? document.getElementById('address').value.trim() : '';
             const password = document.getElementById('password') ? document.getElementById('password').value : '';
-            let profile_picture = user.profile_picture || '';
+            let profile_picture_url = user.profile_picture || ''; // Renamed variable for clarity
 
-            // Simple profile picture upload (optional, skip if not changed)
+            // Handle profile picture upload if changed
             const fileInput = document.getElementById('profile_picture');
             if (fileInput && fileInput.files.length > 0) {
                 const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${user.id}_${Date.now()}.${fileExt}`;
+
+                // Upload to Supabase Storage (assumes supabase is initialized)
+                const { data, error: uploadError } = await supabase.storage // Renamed error to uploadError
+                    .from('profile-pictures')
+                    .upload(fileName, file, { upsert: true });
+
+                if (!uploadError) {
+                    // Get the public URL of the uploaded file
+                    const { data: { publicUrl }, error: urlError } = supabase.storage.from('profile-pictures').getPublicUrl(fileName);
+
+                    if (urlError) {
+                         console.error('Supabase public URL error:', urlError);
+                         showErrorModal('Failed to get public URL for profile picture: ' + (urlError.message || 'Unknown URL error'));
+                         return;
+                    }
+
+                    profile_picture_url = publicUrl; // Use the public URL
+                } else {
+                    console.error('Supabase upload error:', uploadError); // Log the error
+                    showErrorModal('Failed to upload profile picture: ' + (uploadError.message || 'Unknown error')); // Show the actual error message
+                    return; // Stop if upload fails
+                }
+
                 // For simplicity, just use a fake URL (in real app, upload to storage)
-                profile_picture = URL.createObjectURL(file);
+                // profile_picture = URL.createObjectURL(file); // Removed temporary URL creation
             }
 
             // Prepare update object
@@ -84,17 +109,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 lastname,
                 phone_number,
                 address,
-                profile_picture
+                profile_picture: profile_picture_url // Use the uploaded URL or existing one
             };
             if (password && password.trim().length > 0) {
+                // Note: You should ideally hash passwords server-side
                 updateObj.password = password;
             }
 
-            // Update user in Supabase (simple, no error handling)
-            await supabase
+            // Update user in Supabase
+            const { error: updateError } = await supabase
                 .from('users')
                 .update(updateObj)
                 .eq('id', user.id);
+
+            if (updateError) {
+                console.error('Supabase update error:', updateError); // Log the update error
+                showErrorModal('Failed to update settings: ' + (updateError.message || 'Unknown update error')); // Show update error
+                return; // Stop if update fails
+            }
+
 
             // Update sessionStorage (do not store password)
             const updatedUser = {
@@ -103,12 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 lastname,
                 phone_number,
                 address,
-                profile_picture
+                profile_picture: profile_picture_url
             };
             sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
             // Show success modal if exists
             if (document.getElementById('successModal')) {
+                document.getElementById('successMessage').textContent = 'Profile updated successfully!'; // Update success message
                 document.getElementById('successModal').classList.remove('hidden');
             }
         });
