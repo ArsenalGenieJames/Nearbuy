@@ -159,7 +159,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-Your Name - geniejamesarsenal.202300349@gmail.com
+Genie James Arsenal - geniejamesarsenal.202300349@gmail.com
 Project Link: https://github.com/yourusername/NearBuy
 
 ## Acknowledgments
@@ -168,3 +168,11 @@ Project Link: https://github.com/yourusername/NearBuy
 - Supabase for backend services
 - Font Awesome for icons
 - Flowbite for UI components
+
+## Project Members
+
+- Genie James Arsenal | Web Developer
+- Grace Getungo  | Dev Team
+- Joanna Talitod | Dev Team
+- Harlyn Mae Tanate Yañez | Scrum Master
+- Angeel | Product Owner
