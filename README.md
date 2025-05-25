@@ -180,7 +180,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 Genie James Arsenal - geniejamesarsenal.202300349@gmail.com
-Project Link: https://github.com/yourusername/NearBuy
+Project Link: https://nearbuys.netlify.app/
+              https://nearbuys.ct.ws/
 
 ## Acknowledgments
 
