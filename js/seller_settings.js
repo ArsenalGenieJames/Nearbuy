@@ -14,6 +14,27 @@ document.addEventListener('DOMContentLoaded', function () {
         sellerNameEl.textContent = (user.firstname || '') + ' ' + (user.lastname || '');
     }
 
+    // Dropdown menu logic for seller menu
+    const menuButton = document.getElementById('menuButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    if (menuButton && dropdownMenu) {
+        // Toggle dropdown on button click
+        menuButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            // Only close if dropdown is open and click is outside menuButton and dropdownMenu
+            if (!dropdownMenu.classList.contains('hidden')) {
+                if (!menuButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            }
+        });
+    }
+
     // Load seller info into form
     if (document.getElementById('firstname')) document.getElementById('firstname').value = user.firstname || '';
     if (document.getElementById('lastname')) document.getElementById('lastname').value = user.lastname || '';
