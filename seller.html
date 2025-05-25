@@ -17,6 +17,15 @@
     <title>Seller</title>
 </head>
 <body>
+    <script src="./js/auth.js"></script>
+    <script>
+        // Check if user is logged in and is a seller
+        if (!requireSeller()) {
+            // This will redirect to login if not authenticated or not a seller
+            throw new Error('Access denied');
+        }
+    </script>
+
     <nav>
         <div class="flex justify-between items-center p-4 bg-red-600 shadow-md">
             <div class="flex items-center">
@@ -33,7 +42,7 @@
                     <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
                         <a href="store.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Store</a>
                         <a href="settings.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Settings</a>
-                        <div class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white cursor-pointer" id="logoutBtn">Logout</div>
+                        <div class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white cursor-pointer" onclick="logout()">Logout</div>
                     </div>
                 </div>
             </div>
@@ -84,44 +93,44 @@
                 <div class="w-full lg:w-1/2 max-w-md mx-auto mt-6 lg:mt-0">
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <form class="space-y-4" id="addProductForm">
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <label class="block mb-2 text-sm font-semibold text-gray-700">Product Name</label>
-      <input type="text" name="productName" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-    </div>
-    <div>
-      <label class="block mb-2 text-sm font-semibold text-gray-700">Price</label>
-      <input type="number" name="price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-    </div>
-    <div>
-      <label class="block mb-2 text-sm font-semibold text-gray-700">Size</label>
-      <input type="text" name="size" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-    </div>
-    <div>
-      <label class="block mb-2 text-sm font-semibold text-gray-700">Quantity</label>
-      <input type="number" name="quantity" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-    </div>
-    <div>
-      <label class="block mb-2 text-sm font-semibold text-gray-700">Weight</label>
-      <input type="number" name="weight" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-    </div>
-  </div>
-  <div>
-    <label class="block mb-2 text-sm font-semibold text-gray-700">Category</label>
-    <select name="productType" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
-      <option value="">Select a category</option>
-      <option value="pagkaon">Pagkaon</option>
-      <option value="butang">Butang</option>
-    </select>
-  </div>
-  <div>
-    <label class="block mb-2 text-sm font-semibold text-gray-700">Description</label>
-    <textarea name="description" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500" rows="4"></textarea>
-  </div>
-  <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
-    Add Product
-  </button>
-</form>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Product Name</label>
+                                <input type="text" name="productName" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Price</label>
+                                <input type="number" name="price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Size</label>
+                                <input type="text" name="size" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Quantity</label>
+                                <input type="number" name="quantity" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Weight</label>
+                                <input type="number" name="weight" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Category</label>
+                                <select name="productType" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                                <option value="">Select a category</option>
+                                <option value="pagkaon">Pagkaon</option>
+                                <option value="butang">Butang</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold text-gray-700">Description</label>
+                                <textarea name="description" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                                Add Product
+                            </button>
+                        </form>
 
                     </div>
                 </div>
@@ -133,30 +142,329 @@
     <div class="mt-10 category-section hidden p-4" id="viewProductsSection">
         <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Products</h2>
+            
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <input type="text" 
+                               id="searchInput" 
+                               placeholder="Search products by name, category, or description..." 
+                               class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                    </div>
+                    <button onclick="searchProducts()" 
+                            class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div id="productList" class="space-y-4">
+               <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200">
+                    <div class="overflow-x-auto">
+                        <div class="max-h-[600px] overflow-y-auto">
+                            <table class="min-w-full table-auto">
+                                <thead class="bg-red-600 sticky top-0">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-white">Product Name</th>
+                                    <th class="px-4 py-2 text-left text-white">Price</th>
+                                    <th class="px-4 py-2 text-left text-white">Size</th>
+                                    <th class="px-4 py-2 text-left text-white">Quantity</th>
+                                    <th class="px-4 py-2 text-left text-white">Weight</th>
+                                    <th class="px-4 py-2 text-left text-white">Category</th>
+                                    <th class="px-4 py-2 text-left text-white">Description</th>
+                                    <th class="px-4 py-2 text-left text-white">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Product rows inserted by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination Controls -->
+                        <div id="paginationControls" class="flex justify-center items-center space-x-2 mt-4">
+                            <!-- Pagination buttons will be inserted here by JS -->
+                        </div>
+                    </div>
+               </div>
+            </div>
         </div>
     </div>
 
     <div class="mt-10 category-section hidden p-4" id="viewOrdersSection">
         <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Orders</h2>
+            <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200">
+                <div class="overflow-x-auto">
+                    <div class="max-h-[600px] overflow-y-auto">
+                        <table class="min-w-full table-auto">
+                            <thead class="bg-red-600 sticky top-0">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-white">Order ID</th>
+                                    <th class="px-4 py-2 text-left text-white">Customer</th>
+                                    <th class="px-4 py-2 text-left text-white">Products</th>
+                                    <th class="px-4 py-2 text-left text-white">Total Amount</th>
+                                    <th class="px-4 py-2 text-left text-white">Payment Method</th>
+                                    <th class="px-4 py-2 text-left text-white">Status</th>
+                                    <th class="px-4 py-2 text-left text-white">Order Date</th>
+                                    <th class="px-4 py-2 text-left text-white">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orderTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Order rows will be inserted here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination Controls -->
+                    <div id="orderPaginationControls" class="flex justify-center items-center space-x-2 mt-4">
+                        <!-- Pagination buttons will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="mt-10 category-section hidden p-4" id="viewCustomersSection">
         <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Customers</h2>
+            <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200">
+                <div class="overflow-x-auto">
+                    <div class="max-h-[600px] overflow-y-auto">
+                        <table class="min-w-full table-auto">
+                            <thead class="bg-red-600 sticky top-0">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-white">Customer Name</th>
+                                    <th class="px-4 py-2 text-left text-white">Email</th>
+                                    <th class="px-4 py-2 text-left text-white">Phone Number</th>
+                                    <th class="px-4 py-2 text-left text-white">Address</th>
+                                    <th class="px-4 py-2 text-left text-white">Total Orders</th>
+                                    <th class="px-4 py-2 text-left text-white">Total Spent</th>
+                                    <th class="px-4 py-2 text-left text-white">Active Vouchers</th>
+                                    <th class="px-4 py-2 text-left text-white">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Customer rows will be inserted here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination Controls -->
+                    <div id="customerPaginationControls" class="flex justify-center items-center space-x-2 mt-4">
+                        <!-- Pagination buttons will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="mt-10 category-section hidden p-4" id="viewFeedbackSection">
         <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Feedback</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Store Feedback Section -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Store Feedback</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200">
+                        <div class="overflow-x-auto">
+                            <div class="max-h-[400px] overflow-y-auto">
+                                <table class="min-w-full table-auto">
+                                    <thead class="bg-red-600 sticky top-0">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left text-white">Customer</th>
+                                            <th class="px-4 py-2 text-left text-white">Profile Picture</th>
+                                            <th class="px-4 py-2 text-left text-white">Rating</th>
+                                            <th class="px-4 py-2 text-left text-white">Comment</th>
+                                            <th class="px-4 py-2 text-left text-white">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="storeFeedbackTableBody" class="bg-white divide-y divide-gray-200">
+                                        <!-- Store feedback rows will be inserted here by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Feedback Section -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Product Feedback</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200">
+                        <div class="overflow-x-auto">
+                            <div class="max-h-[400px] overflow-y-auto">
+                                <table class="min-w-full table-auto">
+                                    <thead class="bg-red-600 sticky top-0">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left text-white">Product</th>
+                                            <th class="px-4 py-2 text-left text-white">Customer</th>
+                                            <th class="px-4 py-2 text-left text-white">Profile Picture</th>
+                                            <th class="px-4 py-2 text-left text-white">Rating</th>
+                                            <th class="px-4 py-2 text-left text-white">Comment</th>
+                                            <th class="px-4 py-2 text-left text-white">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productFeedbackTableBody" class="bg-white divide-y divide-gray-200">
+                                        <!-- Product feedback rows will be inserted here by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="feedbackPaginationControls" class="flex justify-center items-center space-x-2 mt-4">
+                <!-- Pagination buttons will be inserted here by JS -->
+            </div>
         </div>
     </div>
 
     <div class="mt-10 category-section hidden p-4" id="viewVouchersSection">
         <div class="container mx-auto p-4 sm:p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">View Vouchers</h2>
+            
+            <!-- Create Voucher Form -->
+            <div class="mb-8 p-6 bg-gray-50 rounded-lg">
+                <h3 class="text-lg font-semibold mb-4">Create New Voucher</h3>
+                <form id="createVoucherForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Voucher Code</label>
+                            <input type="text" id="voucherCode" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Discount Percentage</label>
+                            <input type="number" id="discountPercent" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                            <input type="date" id="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                            <input type="date" id="expiryDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Create Voucher</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Vouchers List -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-red-600">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Voucher Code</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Discount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Start Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Expiry Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Usage Count</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vouchersTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Voucher rows will be inserted here by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="voucherPaginationControls" class="flex justify-center items-center space-x-2 mt-4">
+                <!-- Pagination buttons will be inserted here by JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div id="editProductModal" class="fixed inset-0 bg-opacity-50 hidden overflow-y-auto h-full w-full">
+    <div class="relative top-20 mx-auto p-5 border w-full shadow-lg rounded-md bg-white max-w-4xl">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Edit Product</h3>
+            <form id="editProductForm" class="space-y-4">
+                <input type="hidden" id="editProductId">
+                <div>
+                    <img src="./assets/img/nearbuy_primary_logo.png" alt="Product Preview" class="w-full h-48 sm:h-64 object-cover rounded-lg mb-4 border-2 border-dashed border-gray-300" id="productImage">
+                    <label class="block mb-2 text-sm font-semibold text-gray-700" for="file_input">Upload Product Image</label>
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white p-2 hover:bg-[#CC2119] transition-colors focus:outline-none focus:border-red-500" 
+                           id="file_input" 
+                           type="file"
+                           accept="image/*"
+                           onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Product Name</label>
+                    <input type="text" id="editProductName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Price</label>
+                    <input type="number" id="editPrice" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Size</label>
+                    <input type="text" id="editSize" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Quantity</label>
+                    <input type="number" id="editQuantity" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Weight</label>
+                    <input type="number" id="editWeight" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Category</label>
+                    <select id="editProductType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <option value="pagkaon">Pagkaon</option>
+                        <option value="butang">Butang</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea id="editDescription" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteConfirmModal" class="fixed inset-0 bg-opacity-50 hidden overflow-y-auto h-full w-full flex items-center justify-center">
+    <div class="p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Delete Product</h3>
+            <p class="text-sm text-gray-500 mb-4">Are you sure you want to delete this product? This action cannot be undone.</p>
+            <div class="flex justify-center space-x-3">
+                <button onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Cancel</button>
+                <button onclick="confirmDelete()" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" class="fixed inset-0 bg-opacity-50 hidden overflow-y-auto h-full w-full flex items-center justify-center">
+    <div class="p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-2">Success!</h3>
+            <p class="text-sm text-gray-500 mb-4" id="successMessage">Product added successfully!</p>
+            <button onclick="closeSuccessModal()" class="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                OK
+            </button>
         </div>
     </div>
 </div>

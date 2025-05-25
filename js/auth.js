@@ -30,4 +30,37 @@ const auth = {
         }
         return user;
     }
-}; 
+};
+
+// Function to check if user is logged in
+function isLoggedIn() {
+    const user = sessionStorage.getItem('user');
+    return user !== null;
+}
+
+// Function to get current user data
+function getCurrentUser() {
+    const user = sessionStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+}
+
+// Function to check if user is of specific type
+function isUserType(type) {
+    const user = getCurrentUser();
+    return user && user.usertype === type;
+}
+
+// Function to redirect to login if not authenticated
+function requireAuth() {
+    if (!isLoggedIn()) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    return true;
+}
+
+// Function to logout
+function logout() {
+    sessionStorage.removeItem('user');
+    window.location.href = 'login.html';
+} 

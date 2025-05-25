@@ -11,7 +11,7 @@ signupForm.addEventListener('submit', async (e) => {
     const userType = document.getElementById('userType').value;
 
     try {
-        // Sign up user with Supabase auth
+        // Sign up user with Supabase Auth
         const { data: { user }, error } = await supabase.auth.signUp({
             email,
             password
@@ -19,19 +19,18 @@ signupForm.addEventListener('submit', async (e) => {
 
         if (error) throw error;
 
-        // Insert user data into users table with updated structure
-        const { data, error: userError } = await supabase
+        // Insert user data into users table
+        const { error: userError } = await supabase
             .from('users')
             .insert([
                 {
-                    email: email,
-                    password: password, 
+                    email,
+                    password,
                     firstname: firstName,
                     lastname: lastName,
                     phone_number: phoneNumber,
-                    address: address,
-                    usertype: userType,
-                    
+                    address,
+                    usertype: userType
                 }
             ]);
 
@@ -53,7 +52,11 @@ signupForm.addEventListener('submit', async (e) => {
         }
 
     } catch (error) {
-        alert('Error during registration: ' + error.message);
         console.error('Registration error:', error);
+        if (error.message.includes("Email not confirmed")) {
+            alert("📧 Please check your email and click the confirmation link first.");
+        } else {
+            alert('Error during registration: ' + error.message);
+        }
     }
 });
