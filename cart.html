@@ -20,7 +20,7 @@
     </div>
     <nav class="bg-white border-gray-200 ">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-      <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <a href="customer.html" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="./assets/img/nearbuy_primary_logo.png" class="h-8 bg-white" alt="Serbesa Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
         <span style="color: #F6CD13;">Nearbuy</span>
@@ -45,18 +45,49 @@
       </div>
 
       <div class="flex items-center space-x-6 rtl:space-x-reverse">
-        <a href="cart.html">
+        <a href="cart.html" class="relative">
           <i class="fa-solid fa-cart-shopping cursor-pointer" style="color: #F6CD13;">
             <span id="cart-icons">0</span>
           </i>
         </a>
         
-        <a href="register.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Sign Up</a>
-        <a href="login.html" class="text-gray-900 hover:underline cursor-pointer dark:text-gray-900" aria-current="page">Log in</a>
+       <div class="relative inline-block text-white">
+                    <button id="menuButton" class="flex items-center space-x-1 hover:text-gray-200">
+                        <span id="customerName" class="uppercase text-black">Customer Name</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                        <a href="store.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Store</a>
+                        <a href="settings.html" class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white">Settings</a>
+                        <div class="block px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white cursor-pointer" onclick="logout()">Logout</div>
+                    </div>
+                </div>
       </div>
 
       </div>
     </nav>
+    <nav class="text-black border-gray-200 dark:border-gray-700">
+      <div class="max-w-screen-xl px-4 py-3 mx-auto">
+      <div class="flex items-center">
+        <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+        <li>
+          <div onclick="handleClick('Butang')" class="cursor-pointer hover:underline">Butang</div>
+        </li>
+        <li>
+          <div onclick="handleClick('Pagkaon')" class="cursor-pointer hover:underline">Pagkaon</div>
+        </li>
+        </ul>
+      </div>
+      </div>
+    </nav>
+
+
+
+
+
+
 
     <div class="container mx-auto mt-5" id="cart-container">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 cartss">
@@ -285,6 +316,9 @@
             </div>
       </div>
       
-    <script src="./js/cart.js"></script>
+        <script src="./js/cart.js"></script>
+        <script src="./js/auth.js"></script>
+        <script src="./js/logout.js"></script>
+        <script src="./js/supabase.js"></script>
 </body>
 </html>

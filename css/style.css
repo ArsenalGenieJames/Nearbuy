@@ -62,3 +62,20 @@ thead{
     background-color: #CC2119;
 }
 
+.custom-container {
+    background-image: url('./assets/img/tinagofalls.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.custom-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(204, 33, 25, 0.5);
+    border-radius: 0.5rem;
+}

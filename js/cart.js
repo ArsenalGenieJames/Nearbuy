@@ -1,194 +1,126 @@
-        // Add click event to the "Select Address" text
-        document.querySelector('.select-address').addEventListener('click', function() {
-            document.getElementById('address-list-modal').classList.remove('hidden');
-        });
+let cartCount = 0; // Initialize cart count
 
-        function closeAddressModal() {
-            document.getElementById('address-list-modal').classList.add('hidden');
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    if (!checkCustomerAccess()) return;
 
-        // Close modal when clicking outside
-        document.getElementById('address-list-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeAddressModal();
-            }
-        });
+    // Set customer name
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    console.log('User object from sessionStorage:', user); // Log the user object
+    const customerNameElement = document.getElementById('customerName');
+    if (customerNameElement && user) {
+        customerNameElement.textContent = `${user.firstname} ${user.lastname}`;
+    }
 
-        // Prevent closing when clicking inside modal
-        document.querySelector('#address-list-modal > div').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // Add click event to the "Select Voucher" text
-        document.querySelector('.text-right').addEventListener('click', function() {
-            document.getElementById('voucher-list-modal').classList.remove('hidden');
-        });
-
-        function closeVoucherModal() {
-            document.getElementById('voucher-list-modal').classList.add('hidden');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('voucher-list-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeVoucherModal();
-            }
-        });
-
-        // Prevent closing when clicking inside modal
-        document.querySelector('#voucher-list-modal > div').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // Check if cart is empty before checkout
-        document.getElementById('checkout-btn').addEventListener('click', function() {
-            const cartItems = document.querySelectorAll('#cart-items tr');
-            if (cartItems.length === 0) {
-                // Show alert and ensure it's visible
-                const alertElement = document.getElementById('alert-additional-content-2');
-                alertElement.style.display = 'block';
-                alertElement.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                document.getElementById('cart-container').style.display = 'none';
-                document.getElementById('checkout-modal').style.display = 'block';
-            }
-        });
-
-// Load cart data from localStorage
-let orders = JSON.parse(localStorage.getItem('cart')) || [];
-let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
-
-// Initialize cart on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Update cart count in header
-    document.getElementById('cart-icons').textContent = cartCount;
+    // Setup dropdown menu
+    const menuButton = document.getElementById('menuButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
     
-    // Render cart items
-    renderCart();
+    menuButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+
+    // Render products on page load
+    renderProducts();
 });
-
-// Render cart items
-function renderCart() {
-    const cartTable = document.getElementById('cartTable');
-    if (!cartTable) return;
     
-    const tbody = cartTable.querySelector('tbody');
-    tbody.innerHTML = '';
     
-    const orderSummary = {};
-    let total = 0;
-
-    // Group items by name and calculate quantities
-    orders.forEach(order => {
-        if (orderSummary[order.name]) {
-            orderSummary[order.name].quantity++;
-        } else {
-            orderSummary[order.name] = { price: order.price, quantity: 1 };
+    
+    // Add this at the beginning of cart.js
+    function checkCustomerAccess() {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (!user || user.usertype !== 'customer') {
+            window.location.href = 'login.html';
+            return false;
         }
-    });
-
-    // Create table rows for each item
-    Object.keys(orderSummary).forEach(productName => {
-        const { price, quantity } = orderSummary[productName];
-        const row = document.createElement('tr');
-        const itemTotal = price * quantity;
-        total += itemTotal;
-
-        row.innerHTML = `
-            <td class="px-6 py-4">
-                <div class="flex items-center">
-                    <div class="w-16 h-16 mr-4">
-                        <img src="${getProductImage(productName)}" alt="${productName}" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                    <div>
-                        <div class="font-semibold">${productName}</div>
-                        <div class="text-sm text-gray-500">₱${price.toFixed(2)} each</div>
-                    </div>
-                </div>
-            </td>
-            <td class="px-6 py-4">
-                <div class="flex items-center space-x-2">
-                    <button onclick="decreaseQuantity('${productName}')" class="bg-gray-200 px-2 py-1 rounded-lg">-</button>
-                    <span>${quantity}</span>
-                    <button onclick="increaseQuantity('${productName}')" class="bg-gray-200 px-2 py-1 rounded-lg">+</button>
-                </div>
-            </td>
-            <td class="px-6 py-4">₱${itemTotal.toFixed(2)}</td>
-            <td class="px-6 py-4">
-                <button onclick="removeItem('${productName}')" class="text-red-500 hover:underline">Remove</button>
-            </td>
-        `;
-
-        tbody.appendChild(row);
-    });
-
-    // Update total
-    const totalElement = document.getElementById('cartTotal');
-    if (totalElement) {
-        totalElement.textContent = `₱${total.toFixed(2)}`;
+        return true;
     }
-}
 
-// Get product image
-function getProductImage(productName) {
-    // This is a placeholder - you should implement proper image handling
-    return './assets/img/products.jpg';
-}
+    // Define renderCart function
+    function renderCart() {
+        const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+        const cartItemsTableBody = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const cartIconCountElement = document.getElementById('cart-icons');
 
-// Decrease item quantity
-function decreaseQuantity(productName) {
-    const orderIndex = orders.findIndex(order => order.name === productName);
-    if (orderIndex !== -1) {
-        orders.splice(orderIndex, 1);
-        cartCount--;
-        updateStorage();
+        // Ensure the necessary elements exist before proceeding
+        if (!cartItemsTableBody || !cartTotalElement || !cartIconCountElement) {
+            console.error('Cart display elements not found!');
+            return; // Stop if essential elements are missing
+        }
+
+        // Clear existing table rows
+        cartItemsTableBody.innerHTML = '';
+
+        let total = 0;
+        let itemCount = 0;
+
+        if (cartItems.length === 0) {
+            // Display a message if the cart is empty
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = `
+                <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                    Your cart is empty.
+                </td>
+            `;
+            cartItemsTableBody.appendChild(emptyRow);
+        } else {
+            cartItems.forEach(item => {
+                const row = document.createElement('tr');
+                row.classList.add('bg-white', 'border-b', 'dark:bg-gray-800', 'dark:border-gray-700'); // Add some basic styling classes
+
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                itemCount += item.quantity;
+
+                row.innerHTML = `
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        ${item.title}
+                    </th>
+                    <td class="px-6 py-4">
+                        ${item.quantity}
+                    </td>
+                    <td class="px-6 py-4">
+                        ₱${item.price.toFixed(2)}
+                    </td>
+                    <td class="px-6 py-4">
+                        ₱${itemTotal.toFixed(2)}
+                    </td>
+                `;
+
+                cartItemsTableBody.appendChild(row);
+            });
+        }
+
+        // Update total price
+        cartTotalElement.textContent = `₱${total.toFixed(2)}`;
+
+        // Update cart icon count in header
+        cartIconCountElement.textContent = itemCount;
+    }
+
+    // Modify your DOMContentLoaded event listener
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check access first
+        if (!checkCustomerAccess()) return;
+
+        // Set customer name
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        console.log('User object from sessionStorage:', user); // Log the user object
+        const customerNameElement = document.getElementById('customerName');
+        if (customerNameElement && user && user.firstname && user.lastname) {
+            customerNameElement.textContent = `${user.firstname} ${user.lastname}`;
+        } else if (customerNameElement) {
+            customerNameElement.textContent = 'Guest'; // Set a default if name is not available
+            console.warn('User name not found in sessionStorage.', user);
+        }
+
+        // Render cart items on page load
         renderCart();
-    }
-}
-
-// Increase item quantity
-function increaseQuantity(productName) {
-    const product = orders.find(order => order.name === productName);
-    if (product) {
-        orders.push(product);
-        cartCount++;
-        updateStorage();
-        renderCart();
-    }
-}
-
-// Remove item
-function removeItem(productName) {
-    const removedCount = orders.filter(order => order.name === productName).length;
-    orders = orders.filter(order => order.name !== productName);
-    cartCount -= removedCount;
-    updateStorage();
-    renderCart();
-}
-
-// Update localStorage
-function updateStorage() {
-    localStorage.setItem('cart', JSON.stringify(orders));
-    localStorage.setItem('cartCount', cartCount);
-    document.getElementById('cart-icons').textContent = cartCount;
-}
-
-// Clear cart
-function clearCart() {
-    orders = [];
-    cartCount = 0;
-    updateStorage();
-    renderCart();
-}
-
-// Checkout
-function checkout() {
-    if (orders.length === 0) {
-        alert('Your cart is empty!');
-        return;
-    }
-    
-    // Here you would typically redirect to a checkout page or show a checkout modal
-    alert('Proceeding to checkout...');
-    // clearCart(); // Uncomment if you want to clear the cart after checkout
-}
+    });
