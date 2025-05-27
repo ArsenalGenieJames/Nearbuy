@@ -105,6 +105,101 @@ document.addEventListener('DOMContentLoaded', () => {
         cartIconCountElement.textContent = itemCount;
     }
 
+    // Function to handle the checkout process
+    async function handleCheckout() {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+        if (!user || !user.id) {
+            alert('You must be logged in to checkout.');
+            window.location.href = 'login.html'; // Redirect to login if not logged in
+            return;
+        }
+
+        if (cartItems.length === 0) {
+            // Display the alert message if cart is empty (using the existing HTML)
+            const emptyCartAlert = document.getElementById('alert-additional-content-2');
+            if (emptyCartAlert) {
+                emptyCartAlert.style.display = 'block';
+                 // Scroll to the alert message
+                emptyCartAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Optionally, you could also use a simple alert:
+            // alert('Your cart is empty. Add items before checking out.');
+            return;
+        }
+
+        // Calculate total amount
+        const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+        try {
+            // 1. Insert into orders table
+            const { data: orderData, error: orderError } = await supabase
+                .from('orders')
+                .insert([
+                    { user_id: user.id, total_amount: totalAmount, status: 'Pending' }
+                ])
+                .select(); // Select the inserted data to get the order ID
+
+            if (orderError) {
+                console.error('Error creating order:', orderError);
+                alert('Error creating order. Please try again.');
+                return;
+            }
+
+            const newOrderId = orderData[0].id;
+
+            // 2. Insert into ordered table for each cart item
+            const orderedItemsToInsert = cartItems.map(item => ({
+                orders_id: newOrderId,
+                product_id: item.id, // Assuming item in sessionStorage has product ID
+                price: item.price,
+                quantity: item.quantity,
+                subtotal: item.price * item.quantity
+            }));
+
+            const { error: orderedError } = await supabase
+                .from('ordered')
+                .insert(orderedItemsToInsert);
+
+            if (orderedError) {
+                console.error('Error creating ordered items:', orderedError);
+                 // Consider compensating transaction: delete the created order if ordered items fail
+                alert('Error saving order details. Please contact support.');
+                return;
+            }
+
+            // 3. Clear cart from sessionStorage
+            sessionStorage.removeItem('cartItems');
+
+            // 4. Redirect to order confirmation/history page
+            alert('Order placed successfully!');
+            // window.location.href = 'order_history.html'; // Redirect to an order history page (example)
+             window.location.reload(); // For now, just reload to show empty cart
+
+        } catch (error) {
+            console.error('An unexpected error occurred during checkout:', error);
+            alert('An unexpected error occurred. Please try again.');
+        }
+    }
+
+    // Add event listener to the checkout button
+    const checkoutButton = document.getElementById('checkout-btn');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', handleCheckout);
+    } else {
+         console.error('Checkout button not found!');
+    }
+
+    // Add event listener to the voucher button (placeholder for now)
+    const voucherButton = document.getElementById('voucher-btn');
+    if (voucherButton) {
+        voucherButton.addEventListener('click', () => {
+            // TODO: Implement voucher modal or logic
+            alert('Voucher functionality not yet implemented.');
+        });
+    }
+
     // Modify your DOMContentLoaded event listener
     document.addEventListener('DOMContentLoaded', function() {
         // Check access first

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@supabase/supabase-js@2.39.3"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,39 +11,18 @@
     <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Customer</title>
+    <title>Order History</title>
 </head>
 <body>
-     <div class="custom-ads" >
-        <marquee >
-           Get <span class="inline-block mx-1 custom-per">30% OFF</span><img class="inline-block mx-1" src="./assets/img/cartss.svg" alt="cart"> Order now and get it delivered within <span class="inline-block mx-1 custom-per">20 minutes</span>
-        </marquee>
-    </div>
+    <!-- Navigation bar (can copy from customer.html or cart.html) -->
     <nav class="bg-white border-gray-200 ">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
       <a href="customer.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="./assets/img/nearbuy_primary_logo.png" class="h-8 bg-white" alt="Serbesa Logo" />
+        <img src="./assets/img/nearbuy_primary_logo.png" class="h-8 bg-white" alt="Nearbuy Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
         <span style="color: #F6CD13;">Nearbuy</span>
         </span>
       </a>
-
-      <div class="flex justify-center w-1/2">
-        <form class="w-full flex items-center relative">
-          <div class="relative w-full">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <i class="fas fa-search text-gray-500"></i>
-            </div>
-            <input type="text" id="default-search"
-            class="block p-2 pl-10 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 text-black"
-            placeholder="Search your desire..." required>
-          </div>
-          <button type="submit"
-            class="inline-flex items-center p-2 ml-2 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300">
-            Search
-          </button>
-        </form>
-      </div>
 
       <div class="flex items-center space-x-6 rtl:space-x-reverse">
         <a href="cart.html" class="relative">
@@ -69,91 +47,40 @@
 
       </div>
     </nav>
-    <nav class="text-black border-gray-200 dark:border-gray-700">
-      <div class="max-w-screen-xl px-4 py-3 mx-auto">
-      <div class="flex items-center">
-        <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-        <li>
-          <div onclick="handleClick('Butang')" class="cursor-pointer hover:underline">Butang</div>
-        </li>
-        <li>
-          <div onclick="handleClick('Pagkaon')" class="cursor-pointer hover:underline">Pagkaon</div>
-        </li>
-        </ul>
-      </div>
-      </div>
-    </nav>
 
-
-    <div class="container mx-auto px-4 mt-4 bg-white rounded-lg  relative h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
-        <img src="./assets/img/tinagofalls.png" alt="Tinago Falls" class="w-full h-full object-cover rounded-lg">
-        <div class="text-left absolute inset-0 flex flex-col items-start justify-center p-4 ml-9 sm:p-6 md:p-8 lg:p-10 rounded-lg">
-            <p class="text-white mb-2 sm:mb-3 text-sm sm:text-base md:text-lg">Get Free Delivery On Your First Orders</p>
-            <h1 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 text-white">We deliver local products to your doorstep</h1>
-            <p class="text-white mb-4 sm:mb-6 text-sm sm:text-base md:text-lg hidden sm:block">Experience Local Delights: Order Authentic Iligan City Food Products Online!</p>
-            <a href="#products-section" class="text-white px-4 py-2 rounded bg-indigo-900 hover:bg-yellow-400 text-sm sm:text-base">Explore Now</a>
+    <div class="container mx-auto px-4 mt-8">
+        <h1 class="text-2xl font-bold mb-4">Order History</h1>
+        <div id="orders-container" class="space-y-6">
+            <!-- Customer orders will be loaded here by JavaScript -->
         </div>
     </div>
 
-
-    <div id="products-section" class="container mx-auto px-4 mt-4">
-        <!-- This container will display search results -->
-        <!-- It is hidden by default and shown when searchProducts finds results -->
-        <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 hidden">
-            <!-- Search results will be rendered here by JavaScript -->
-        </div>
-
-        <!-- These category sections are shown by default -->
-        <!-- They are hidden when searchProducts is active with a query -->
-        <div id="category-sections-container">
-            <div class="category-section container mx-auto px-4 mt-4">
-                <h1 class="text-xl font-bold mb-4">Local Butang</h1>
-                <div id="butang-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Butang products will be rendered here -->
-                </div>
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Leave Feedback</h3>
+                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
             </div>
-
-            <div class="category-section container mx-auto px-4 mt-4">
-                <h1 class="text-xl font-bold mb-4">Local Pagkaon</h1>
-                <div id="pagkaon-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Pagkaon products will be rendered here -->
+            <form id="feedbackForm">
+                <input type="hidden" id="feedbackProductId">
+                <div class="mb-4">
+                    <label for="rating" class="block text-sm font-medium text-gray-700">Rating (1-5)</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" required
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                 </div>
-            </div>
+                <div class="mb-4">
+                    <label for="statement" class="block text-sm font-medium text-gray-700">Your Feedback</label>
+                    <textarea id="statement" name="statement" rows="4" required
+                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit Feedback</button>
+            </form>
         </div>
-
     </div>
 
-
-
-
-
-    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50" style="display: none;">
-      <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative">
-        <img src="" alt="Product Image" id="popupProductImage" class="w-full h-48 object-cover mb-4">
-        <div class="flex justify-between items-center mb-4">
-          <h3 id="popupProductName" class="text-lg font-semibold"></h3>
-          <button onclick="closePopup()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-        </div>
-        <p id="popupProductPrice" class="text-gray-800 font-bold mb-4"></p>
-        <div class="flex items-center space-x-4 mb-4">
-          <button onclick="decreaseQuantity()" class="bg-gray-200 px-3 py-1 rounded-lg hover:bg-gray-300">-</button>
-          <span id="quantity" class="text-lg font-semibold">1</span>
-          <button onclick="increaseQuantity()" class="bg-gray-200 px-3 py-1 rounded-lg hover:bg-gray-300">+</button>
-        </div>
-        <button onclick="confirmAddToOrder()" class="w-full bg-[#F6CD13] text-black px-4 py-2 rounded-lg hover:bg-[#e6bd10] transition-colors">Add to Orders</button>
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-        <!-- Footer -->
-       <div class="mt-5">
+    <!-- Footer (can copy from customer.html or cart.html) -->
+    <div class="mt-5">
         <footer class="bg-white mt-10">
                 <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                   <div class="md:flex md:justify-between">
@@ -215,11 +142,9 @@
               </footer>
        </div>
 
-
-
-        <script src="./js/auth.js"></script>
-        <script src="./js/customer.js"></script>
-        <script src="./js/logout.js"></script>
-        <script src="./js/supabase.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/logout.js"></script>
+    <script src="./js/supabase.js"></script>
+    <script src="./js/order_history.js"></script>
 </body>
-</html>
+</html> 

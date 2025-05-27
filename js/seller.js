@@ -848,3 +848,190 @@ function updateFeedbackPaginationControls(currentPage) {
     nextButton.onclick = () => loadFeedback(currentPage + 1);
     controls.appendChild(nextButton);
 }
+
+
+
+// Variables for voucher pagination
+let vouchersPerPage = 10;
+let totalVouchers = 0;
+let currentVoucherPage = 1;
+
+// Handle voucher form submission
+document.getElementById('createVoucherForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    try {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (!user) throw new Error('Not logged in');
+
+        const voucherData = {
+            user_id: user.id,
+            voucher_code: document.getElementById('voucherCode').value.trim(),
+            discount_percent: parseFloat(document.getElementById('discountPercent').value),
+            created_at: new Date().toISOString(),
+            expiry_date: document.getElementById('expiryDate').value,
+            usage_count: 0,
+            status: 'active'
+        };
+
+        const { error } = await supabase
+            .from('vouchers')
+            .insert([voucherData]);
+
+        if (error) throw error;
+
+        showSuccessModal('Voucher created successfully!');
+        e.target.reset();
+        loadVouchers();
+    } catch (error) {
+        console.error('Error creating voucher:', error);
+        alert('Failed to create voucher: ' + error.message);
+    }
+});
+
+// Function to load vouchers
+async function loadVouchers(page = 1) {
+    try {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (!user) throw new Error('Not logged in');
+
+        const { count, error: countError } = await supabase
+            .from('vouchers')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', user.id);
+
+        if (countError) throw countError;
+        totalVouchers = count;
+
+        const from = (page - 1) * vouchersPerPage;
+        const to = from + vouchersPerPage - 1;
+
+        const { data: vouchers, error } = await supabase
+            .from('vouchers')
+            .select('*')
+            .eq('user_id', user.id)
+            .range(from, to)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        updateVoucherTable(vouchers);
+        updateVoucherPaginationControls(page);
+
+    } catch (error) {
+        console.error('Error loading vouchers:', error);
+        alert('Failed to load vouchers: ' + error.message);
+    }
+}
+
+// Function to update voucher table
+function updateVoucherTable(vouchers) {
+    const tableBody = document.getElementById('vouchersTableBody');
+    tableBody.innerHTML = '';
+
+    if (vouchers.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                    No vouchers found. Create your first voucher using the form above.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    vouchers.forEach(voucher => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="px-6 py-4">${voucher.voucher_code}</td>
+            <td class="px-6 py-4">${voucher.discount_percent}%</td>
+            <td class="px-6 py-4">${new Date(voucher.created_at).toLocaleDateString()}</td>
+            <td class="px-6 py-4">${new Date(voucher.expiry_date).toLocaleDateString()}</td>
+            <td class="px-6 py-4">${voucher.usage_count || 0}</td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 text-sm rounded-full ${voucher.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                    ${voucher.status}
+                </span>
+            </td>
+            <td class="px-6 py-4">
+                <button onclick="toggleVoucherStatus('${voucher.id}', '${voucher.status === 'active' ? 'inactive' : 'active'}')" 
+                        class="px-3 py-1 text-sm rounded ${voucher.status === 'active' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white">
+                    ${voucher.status === 'active' ? 'Deactivate' : 'Activate'}
+                </button>
+                <button onclick="deleteVoucher('${voucher.id}')"
+                        class="px-3 py-1 text-sm rounded bg-gray-500 hover:bg-gray-600 text-white ml-2">
+                    Delete
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Function to update voucher pagination controls
+function updateVoucherPaginationControls(currentPage) {
+    const totalPages = Math.ceil(totalVouchers / vouchersPerPage);
+    const controls = document.getElementById('voucherPaginationControls');
+    controls.innerHTML = '';
+
+    if (totalPages > 1) {
+        controls.innerHTML = `
+            <button onclick="loadVouchers(${currentPage - 1})" 
+                    class="px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600'}"
+                    ${currentPage === 1 ? 'disabled' : ''}>
+                Previous
+            </button>
+            <span class="text-gray-700">Page ${currentPage} of ${totalPages}</span>
+            <button onclick="loadVouchers(${currentPage + 1})" 
+                    class="px-3 py-1 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600'}"
+                    ${currentPage === totalPages ? 'disabled' : ''}>
+                Next
+            </button>
+        `;
+    }
+}
+
+// Function to toggle voucher status
+async function toggleVoucherStatus(voucherId, newStatus) {
+    try {
+        const { error } = await supabase
+            .from('vouchers')
+            .update({ status: newStatus })
+            .eq('id', voucherId);
+
+        if (error) throw error;
+
+        showSuccessModal(`Voucher ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`);
+        loadVouchers(currentVoucherPage);
+    } catch (error) {
+        console.error('Error updating voucher status:', error);
+        alert('Failed to update voucher status: ' + error.message);
+    }
+}
+
+// Function to delete voucher
+async function deleteVoucher(voucherId) {
+    if (!confirm('Are you sure you want to delete this voucher?')) return;
+
+    try {
+        const { error } = await supabase
+            .from('vouchers')
+            .delete()
+            .eq('id', voucherId);
+
+        if (error) throw error;
+
+        showSuccessModal('Voucher deleted successfully!');
+        loadVouchers(currentVoucherPage);
+    } catch (error) {
+        console.error('Error deleting voucher:', error);
+        alert('Failed to delete voucher: ' + error.message);
+    }
+}
+
+// Load vouchers when section is shown
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('viewVouchersSection')) {
+        loadVouchers();
+    }
+});
