@@ -47,6 +47,32 @@ NearBuy is a web-based marketplace platform that connects local sellers with cus
 - Use discount vouchers
 - Track order status
 
+### For Riders
+- **Delivery Management**
+  - View and accept delivery requests
+  - Real-time order tracking
+  - Update delivery status (picked up/in transit/delivered)
+  - Route optimization suggestions
+  - Track delivery history
+
+- **Earnings Management**
+  - View earnings per delivery
+  - Track daily/weekly/monthly earnings
+  - View payment history
+  - Monitor performance metrics
+
+- **Profile Management**
+  - Update availability status (online/offline)
+  - Manage delivery zones
+  - Update vehicle information
+  - View customer ratings and feedback
+
+- **Communication Features**
+  - In-app messaging with customers
+  - Contact support system
+  - Real-time notifications for new orders
+  - Communication with sellers for order pickup
+
 ## Technical Stack
 
 ### Frontend
