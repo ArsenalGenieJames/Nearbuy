@@ -39,62 +39,62 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             customerName: "Genie James Arsenal",
             customerLocation: "Suka Pinalami",
-            customerAddress: "Location Address",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerAddress: "Tambacan, Iligan City",
+            customerProfileImg: "./assets/profile customer/mingming.jpg"
         },
         {
-            customerName: "Joana Talitod",
-            customerLocation: "Saray Iligan City",
-            customerAddress: "123 Main St",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerName: "Joanna Talitod",
+            customerLocation: "Luna Shell Necklace",
+            customerAddress: "Saray, Iligan City",
+            customerProfileImg: "./assets/profile customer/wan.jpg"
         },
         {
             customerName: "Bob Johnson",
             customerLocation: "Purok Dos",
             customerAddress: "456 Oak Ave",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/opaw.jpg"
         },
          {
             customerName: "Charlie Brown",
             customerLocation: "District Three",
             customerAddress: "789 Pine Ln",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/ming.jpg"
         },
         {
             customerName: "David Green",
             customerLocation: "Sector Four",
             customerAddress: "101 Maple Rd",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/hamzter.jpg"
         },
         {
             customerName: "Eve Adams",
             customerLocation: "Zone Five",
             customerAddress: "202 Birch Blvd",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/racy.jpg"
         },
         {
             customerName: "Frank White",
             customerLocation: "Area Six",
             customerAddress: "303 Cedar Ct",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/pap.jpg"
         },
         {
             customerName: "Grace Black",
             customerLocation: "Block Seven",
             customerAddress: "404 Elm St",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/opaw.jpg"
         },
         {
             customerName: "Henry Blue",
             customerLocation: "Phase Eight",
             customerAddress: "505 Pine Ave",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/mingming.jpg"
         },
         {
             customerName: "Ivy Red",
             customerLocation: "Section Nine",
             customerAddress: "606 Oak Ln",
-            customerProfileImg: "https://via.placeholder.com/50"
+            customerProfileImg: "./assets/profile customer/pap.jpg"
         }
     ];
 

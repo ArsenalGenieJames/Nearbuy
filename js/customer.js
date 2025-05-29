@@ -98,21 +98,5 @@ function addToCart(productId) {
     alert('Product added to cart!');
 }
 
-function initializePage() {
-    if (!checkSellerAccess()) return;
 
-    const categories = ['Electronics', 'Clothing', 'Home'];
-    categories.forEach(category => {
-        fetchProducts(category);
-    });
-
-    const categoryButtons = document.querySelectorAll('.category-button');
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            handleClick(this.textContent);
-        });
-    });
-}
-
-document.addEventListener('DOMContentLoaded', initializePage);
 
