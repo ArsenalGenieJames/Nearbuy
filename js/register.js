@@ -59,4 +59,4 @@ signupForm.addEventListener('submit', async (e) => {
             alert('Error during registration: ' + error.message);
         }
     }
-});
+}); 

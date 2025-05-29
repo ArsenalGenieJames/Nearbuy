@@ -1,175 +1,154 @@
-// Check if user is logged in and is a rider
-function checkRiderAccess() {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    if (!user || user.usertype !== 'rider') {
-        window.location.href = 'login.html';
-        return false;
-    }
-    return true;
-}
-
-// Initialize drawer navigation
 document.addEventListener('DOMContentLoaded', () => {
-    if (!checkRiderAccess()) return;
+    const drawer = document.getElementById('drawer');
+    const drawerOpenBtn = document.getElementById('drawer-open');
+    const drawerCloseBtn = document.getElementById('drawer-close');
+    const drawerOverlay = document.getElementById('drawer-overlay');
 
-    // Set rider name
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const riderNameElement = document.getElementById('riderName');
-    if (riderNameElement) {
-        riderNameElement.textContent = `${user.firstname} ${user.lastname}`;
+    function openDrawer() {
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        drawerOverlay.classList.remove('hidden');
+        drawerOverlay.classList.add('block');
     }
 
-    // Initialize Flowbite drawer
-    const drawerOptions = {
-        placement: 'right',
-        backdrop: true,
-        bodyScrolling: false,
-        edge: false,
-        edgeOffset: '',
-        onHide: () => {
-            console.log('drawer is hidden');
-        },
-        onShow: () => {
-            console.log('drawer is shown');
-        },
-    };
+    function closeDrawer() {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        drawerOverlay.classList.remove('block');
+        drawerOverlay.classList.add('hidden');
+    }
 
-    // Add click event listeners for navigation items
-    document.querySelectorAll('#drawer-navigation a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = e.target.closest('a').querySelector('span').textContent.toLowerCase();
-            handleNavigation(section);
-        });
-    });
+    if (drawerOpenBtn) {
+        drawerOpenBtn.addEventListener('click', openDrawer);
+    }
+
+    if (drawerCloseBtn) {
+        drawerCloseBtn.addEventListener('click', closeDrawer);
+    }
+
+    if (drawerOverlay) {
+        drawerOverlay.addEventListener('click', closeDrawer);
+    }
 });
 
-// Handle navigation
-function handleNavigation(section) {
-    // Hide all sections first
-    document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
-    
-    // Show the selected section
-    const sectionElement = document.getElementById(`${section}Section`);
-    if (sectionElement) {
-        sectionElement.classList.remove('hidden');
-    }
 
-    // Close the drawer
-    const drawer = document.getElementById('drawer-navigation');
-    if (drawer) {
-        drawer.classList.add('translate-x-full');
-    }
-}
 
-// Load deliveries
-async function loadDeliveries() {
-    try {
-        const user = JSON.parse(sessionStorage.getItem('user'));
-        if (!user) throw new Error('Not logged in');
 
-        const { data: deliveries, error } = await supabase
-            .from('deliveries')
-            .select(`
-                *,
-                orders (
-                    id,
-                    total_amount,
-                    status
-                ),
-                users!seller_id (
-                    firstname,
-                    lastname
-                )
-            `)
-            .eq('rider_id', user.id)
-            .order('assigned_at', { ascending: false });
-
-        if (error) throw error;
-
-        updateDeliveriesTable(deliveries);
-    } catch (error) {
-        console.error('Error loading deliveries:', error);
-        alert('Failed to load deliveries: ' + error.message);
-    }
-}
-
-// Update deliveries table
-function updateDeliveriesTable(deliveries) {
-    const tableBody = document.getElementById('deliveriesTableBody');
-    if (!tableBody) return;
-
-    tableBody.innerHTML = deliveries.length ? deliveries.map(delivery => `
-        <tr class="hover:bg-gray-50">
-            <td class="p-3">#${delivery.orders.id}</td>
-            <td class="p-3">${delivery.users.firstname} ${delivery.users.lastname}</td>
-            <td class="p-3">
-                <span class="px-2 py-1 rounded-full text-sm ${getStatusClass(delivery.status)}">
-                    ${delivery.status}
-                </span>
-            </td>
-        </tr>
-    `).join('') : `
-        <tr>
-            <td colspan="3" class="p-4 text-center text-gray-500">
-                No deliveries found
-            </td>
-        </tr>
-    `;
-}
-
-// Helper function to get status class
-function getStatusClass(status) {
-    switch (status?.toLowerCase()) {
-        case 'pending':
-            return 'bg-yellow-100 text-yellow-800';
-        case 'in_progress':
-            return 'bg-blue-100 text-blue-800';
-        case 'completed':
-            return 'bg-green-100 text-green-800';
-        case 'cancelled':
-            return 'bg-red-100 text-red-800';
-        default:
-            return 'bg-gray-100 text-gray-800';
-    }
-}
-
-// Update delivery status
-async function updateDeliveryStatus(deliveryId, newStatus) {
-    try {
-        const { error } = await supabase
-            .from('deliveries')
-            .update({ status: newStatus })
-            .eq('id', deliveryId);
-
-        if (error) throw error;
-
-        showSuccessModal('Delivery status updated successfully!');
-        loadDeliveries(); // Refresh the deliveries list
-    } catch (error) {
-        console.error('Error updating delivery status:', error);
-        alert('Failed to update delivery status: ' + error.message);
-    }
-}
-
-// Success Modal Functions
-function showSuccessModal(message) {
-    const modal = document.getElementById('successModal');
-    const messageElement = document.getElementById('successMessage');
-    if (modal && messageElement) {
-        messageElement.textContent = message;
-        modal.classList.remove('hidden');
-    }
-}
-
-function closeSuccessModal() {
-    const modal = document.getElementById('successModal');
-    if (modal) {
-        modal.classList.add('hidden');
-    }
-}
-
-// Load initial data
 document.addEventListener('DOMContentLoaded', () => {
-    loadDeliveries();
+    const orders = [
+        {
+            customerName: "Genie James Arsenal",
+            customerLocation: "Suka Pinalami",
+            customerAddress: "Location Address",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Joana Talitod",
+            customerLocation: "Saray Iligan City",
+            customerAddress: "123 Main St",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Bob Johnson",
+            customerLocation: "Purok Dos",
+            customerAddress: "456 Oak Ave",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+         {
+            customerName: "Charlie Brown",
+            customerLocation: "District Three",
+            customerAddress: "789 Pine Ln",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "David Green",
+            customerLocation: "Sector Four",
+            customerAddress: "101 Maple Rd",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Eve Adams",
+            customerLocation: "Zone Five",
+            customerAddress: "202 Birch Blvd",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Frank White",
+            customerLocation: "Area Six",
+            customerAddress: "303 Cedar Ct",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Grace Black",
+            customerLocation: "Block Seven",
+            customerAddress: "404 Elm St",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Henry Blue",
+            customerLocation: "Phase Eight",
+            customerAddress: "505 Pine Ave",
+            customerProfileImg: "https://via.placeholder.com/50"
+        },
+        {
+            customerName: "Ivy Red",
+            customerLocation: "Section Nine",
+            customerAddress: "606 Oak Ln",
+            customerProfileImg: "https://via.placeholder.com/50"
+        }
+    ];
+
+    const ordersListDiv = document.getElementById('orders-list');
+
+    function renderOrders(ordersArray) {
+        ordersListDiv.innerHTML = ''; 
+
+        if (ordersArray.length === 0) {
+            ordersListDiv.innerHTML = '<p class="text-center text-gray-500">No orders found.</p>';
+            return;
+        }
+
+        ordersArray.forEach(order => {
+            const orderElement = document.createElement('div');
+            orderElement.classList.add('flex', 'flex-col', 'sm:flex-row', 'items-start', 'sm:items-center', 'justify-between', 'border-b', 'border-gray-200', 'py-4');
+
+            orderElement.innerHTML = `
+                <div class="flex items-center mb-2 sm:mb-0">
+                    <img src="${order.customerProfileImg}" alt="Customer Profile" class="w-12 h-12 rounded-full mr-4 object-cover">
+                    <div>
+                        <p class="text-lg font-semibold">${order.customerName}</p>
+                        <p class="text-gray-600">${order.customerLocation}</p>
+                        <p class="text-gray-700">${order.customerAddress}</p>
+                    </div>
+                </div>
+                <!-- Add action buttons here if needed, e.g., Accept/Reject -->
+                <!--
+                <div class="flex space-x-2">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded">Accept</button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
+                </div>
+                -->
+            `;
+
+            ordersListDiv.appendChild(orderElement);
+        });
+    }
+
+
+    renderOrders(orders);
+
+  
+    const searchInput = document.getElementById('order-search'); 
+    if (searchInput) {
+        searchInput.addEventListener('input', (event) => {
+            const searchTerm = event.target.value.toLowerCase();
+            const filteredOrders = orders.filter(order =>
+                order.customerName.toLowerCase().includes(searchTerm) ||
+                order.customerLocation.toLowerCase().includes(searchTerm) ||
+                order.customerAddress.toLowerCase().includes(searchTerm)
+             
+            );
+            renderOrders(filteredOrders);
+        });
+    }
 });
