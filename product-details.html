@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="icon" href="./assets/img/nearbuy_primary_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Product Details</title>
+</head>
+<body>
+     <div class="custom-ads" >
+        <marquee >
+           Get <span class="inline-block mx-1 custom-per">30% OFF</span><img class="inline-block mx-1" src="./assets/img/cartss.svg" alt="cart"> Order now and get it delivered within <span class="inline-block mx-1 custom-per">20 minutes</span>
+        </marquee>
+    </div>
+    <nav class="bg-white border-gray-200 ">
+      <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+      <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="./assets/img/nearbuy_primary_logo.png" class="h-8 bg-white" alt="Serbesa Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
+        <span style="color: #F6CD13;">Nearbuy</span>
+        </span>
+      </a>
+
+      <div class="flex justify-center w-1/2">
+        <form class="w-full flex items-center relative">   
+          <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <i class="fas fa-search text-gray-500"></i>
+            </div>
+            <input type="text" id="default-search" 
+            class="block p-2 pl-10 w-full text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 text-black" 
+            placeholder="Search your desire..." required>
+          </div>
+          <button type="submit" 
+            class="inline-flex items-center p-2 ml-2 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300">
+            Search
+          </button>
+        </form>
+      </div>
+
+    <div class="flex items-center space-x-6 rtl:space-x-reverse">
+      <div onclick="handleClick('cart')" class="relative">
+        <i class="fa-solid fa-cart-shopping cursor-pointer" style="color: #F6CD13;">
+        <span id="cart-icons">0</span>
+        </i>
+      </div>
+      
+      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black bg-[#F6CD13]  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center cursor-pointer" type="button">
+      <span id="customer-name">Customer name</span>
+      <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+      </svg>
+      </button>
+    <!-- Dropdown menu -->
+    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+        <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+          <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+          </li>
+          <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+          </li>
+          <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sign out</a>
+          </li>
+        </ul>
+    </div></svg>
+      </div>
+
+      </div>
+    </nav>
+    <nav class="text-black border-gray-200 dark:border-gray-700">
+      <div class="max-w-screen-xl px-4 py-3 mx-auto">
+      <div class="flex items-center">
+        <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+        <li>
+          <div onclick="handleClick('Butang')" class="cursor-pointer hover:underline">Butang</div>
+        </li>
+        <li>
+          <div onclick="handleClick('Pagkaon')" class="cursor-pointer hover:underline">Pagkaon</div>
+        </li>
+        </ul>
+      </div>
+      </div>
+    </nav>
+
+    <section class="py-8 mt-8 md:py-16">
+      <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+    
+
+          <div class="flex gap-4">
+            <div class="flex-1 order-1">
+              <img id="main-light" class="w-full dark:hidden rounded-lg" src="./assets/pagkaon/sukapinakurat.jpg" alt="sukapinakurat main" />
+              <img id="main-dark" class="w-full hidden dark:block rounded-lg" src="./assets/pagkaon/sukapinakurat.jpg" alt="sukapinakurat main" />
+            </div>
+    
+            <div class="flex flex-col gap-2 w-24 order-2">
+              <img class="thumbnail w-full dark:hidden rounded-md cursor-pointer" data-src="./assets/pagkaon/letchons.jpg" src="./assets/pagkaon/sukapinakurat.jpg" alt="thumbnail 1">
+              <img class="thumbnail w-full hidden dark:block rounded-md cursor-pointer" data-src="./assets/pagkaon/letchons.jpg" src="./assets/pagkaon/sukapinakurat.jpg" alt="thumbnail 1">
+    
+              <img class="thumbnail w-full dark:hidden rounded-md cursor-pointer" data-src="./assets/pagkaon/letchons.jpg" src="./assets/pagkaon/sukapinakurat.jpg" alt="thumbnail 2">
+              <img class="thumbnail w-full hidden dark:block rounded-md cursor-pointer" data-src="./assets/pagkaon/letchons.jpg" src="./assets/pagkaon/sukapinakurat.jpg" alt="thumbnail 2">
+            </div>
+          </div>
+    
+
+          <div class="flex flex-col mt-6 lg:mt-0">
+            <h1 class="text-xl font-semibold text-black sm:text-2xl mb-4">Suka Pinakurat Demonyo</h1>
+    
+
+            <div class="flex items-center gap-2 mb-4">
+              <div class="flex items-center gap-1 text-yellow-300">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+              </div>
+              <p class="text-sm font-medium leading-none text-black">(5.0)</p>
+              <a href="#" class="text-sm font-medium text-black underline hover:no-underline">150 Reviews</a>
+            </div>
+
+            <div class="mt-4 sm:flex sm:items-center sm:gap-4">
+              <p class="text-2xl font-extrabold text-black sm:text-3xl">₱192.00</p>
+            </div>
+    
+
+            <p class="mb-1 mt-2 text-black">
+              The word “Kurat™®©” is not germane or related to the product “Vinegar”, “and thus was allowed registration by the Intellectual Property Office as a Trademark in favor of Reinard Donn Stuart del Rosario. In 2008, trademark ownership was transferred to Green Gold Gourmet Foods Inc. 
+            </p>
+            
+            <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-700" />
+
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2 mb-4">
+                <b class="text-black">Size:</b>
+                <div class="flex gap-2 flex-wrap">
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">XS</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">S</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">M</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">L</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">XL</button>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+
+    <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+      <div class="bg-yellow-300 p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+        
+
+        <div class="flex items-center gap-4">
+          <p class="font-bold text-black text-lg">Suka Pinakurat</p>
+          <p class="text-black text-sm flex items-center gap-2">
+            <i class="fas fa-map-marker-alt text-red-800"></i>
+            Green Gold Gourmet Foods, Isabel Village, Brgy. Palao
+          </p>
+        </div>
+    
+
+        <div class="flex items-center gap-4">
+          <a href="./store.html" class="text-black flex items-center gap-1 hover:underline">
+            <i class="fas fa-store"></i>
+            View Shop
+          </a>
+          <button class="flex items-center gap-1 bg-black text-black px-3 py-1 rounded hover:bg-red-800">
+            <i class="fas fa-comment-alt"></i>
+            Chat Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+    
+
+
+    <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 mt-6 mb-10">
+      <section class="bg-[#D3DBE6] py-8 antialiased md:py-16">
+        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+          <div class="flex items-center gap-2 mb-6">
+            <h2 class="text-2xl font-semibold text-black">Product Feedbacks</h2>
+          </div>
+    
+
+          <div class="overflow-y-auto max-h-[600px] space-y-4">
+
+            <div class="p-6 rounded-lg bg-white">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <img
+                    src="./assets/profile customer/mingming.jpg"
+                    alt="mingming"
+                    class="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <p class="font-semibold text-black">Genie James Arsenal</p>
+                      <div class="flex items-center gap-1 text-yellow-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                      </div>
+                      <small class="text-gray-500 text-sm">5/30/2025</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-700">
+                    Super hot and yummy! With just one bite, I find myself relapsing into my past. This product takes me back to late-night gatherings filled with laughter and warmth. The fiery flavor ignites nostalgia, reminding me of carefree days spent with friends, savoring spicy dishes that made our taste buds dance. Each bite is a delicious escape, transporting me to a time when worry faded away with every indulgence. It’s amazing how food can evoke such powerful memories, wrapping me in comfort while tantalizing my taste buds. I can’t help but crave just one more bite, rekindling those cherished moments.
+                  </p>
+                </div>
+              </div>
+            </div>
+    
+
+            <div class="p-6 rounded-lg bg-white">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <img
+                    src="./assets/profile customer/mingming.jpg"
+                    alt="mingming"
+                    class="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <p class="font-semibold text-black">Genie James Arsenal</p>
+                      <div class="flex items-center gap-1 text-yellow-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                      </div>
+                      <small class="text-gray-500 text-sm">5/30/2025</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-700">
+                    Super hot and yummy! With just one bite, I find myself relapsing into my past. This product takes me back to late-night gatherings filled with laughter and warmth. The fiery flavor ignites nostalgia, reminding me of carefree days spent with friends, savoring spicy dishes that made our taste buds dance. Each bite is a delicious escape, transporting me to a time when worry faded away with every indulgence. It’s amazing how food can evoke such powerful memories, wrapping me in comfort while tantalizing my taste buds. I can’t help but crave just one more bite, rekindling those cherished moments.
+                  </p>
+                </div>
+              </div>
+            </div>
+    
+
+            <div class="p-6 rounded-lg bg-white">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <img
+                    src="./assets/profile customer/mingming.jpg"
+                    alt="mingming"
+                    class="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <p class="font-semibold text-black">Genie James Arsenal</p>
+                      <div class="flex items-center gap-1 text-yellow-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                      </div>
+                      <small class="text-gray-500 text-sm">5/30/2025</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-700">
+                    Super hot and yummy! With just one bite, I find myself relapsing into my past. This product takes me back to late-night gatherings filled with laughter and warmth. The fiery flavor ignites nostalgia, reminding me of carefree days spent with friends, savoring spicy dishes that made our taste buds dance. Each bite is a delicious escape, transporting me to a time when worry faded away with every indulgence. It’s amazing how food can evoke such powerful memories, wrapping me in comfort while tantalizing my taste buds. I can’t help but crave just one more bite, rekindling those cherished moments.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-lg bg-white">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <img
+                    src="./assets/profile customer/mingming.jpg"
+                    alt="mingming"
+                    class="w-20 h-20 rounded-full object-cover"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-center mb-2">
+                    <div>
+                      <p class="font-semibold text-black">Genie James Arsenal</p>
+                      <div class="flex items-center gap-1 text-yellow-400">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
+                      </div>
+                      <small class="text-gray-500 text-sm">5/30/2025</small>
+                    </div>
+                  </div>
+                  <p class="text-gray-700">
+                    Super hot and yummy! With just one bite, I find myself relapsing into my past. This product takes me back to late-night gatherings filled with laughter and warmth. The fiery flavor ignites nostalgia, reminding me of carefree days spent with friends, savoring spicy dishes that made our taste buds dance. Each bite is a delicious escape, transporting me to a time when worry faded away with every indulgence. It’s amazing how food can evoke such powerful memories, wrapping me in comfort while tantalizing my taste buds. I can’t help but crave just one more bite, rekindling those cherished moments.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    
+    
+    
+    <div class="mt-5">
+      <footer class="bg-white mt-10">
+              <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                <div class="md:flex md:justify-between">
+                  <div class="mb-6 md:mb-0">
+                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">ABOUT NEARBUY</h2>
+                    <div class="flex space-x-4 mb-4">
+                      <a href="https://www.facebook.com/" class="text-gray-500 socmed">
+                        <i class="fa-brands fa-facebook-f text-2xl"></i>
+                      </a>
+                      <a href="https://www.threads.com/?hl=en" class="text-gray-500 socmed">
+                        <i class="fa-brands fa-threads text-2xl"></i>
+                      </a>          
+                      <a href="https://www.instagram.com/" class="text-gray-500 socmed">
+                        <i class="fa-brands fa-instagram text-2xl"></i>
+                      </a>
+                    </div>
+                  </div>
+                        
+                  <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div>
+                      <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">ABOUT NEARBUY</h2>
+                      <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li>
+                          <a href="#" class="hover:underline dark:text-black socmed ">Privacy Policy</a>
+                        </li>
+                      </ul>
+                    </div>
+                          
+                    <div>
+                      <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">Customer Service</h2>
+                      <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li class="mb-4">
+                          <a href="index.html" class="hover:underline dark:text-black socmed">Help centre</a>
+                        </li>
+                        <li>
+                          <a href="#" class="hover:underline dark:text-black socmed">Contact Us</a>
+                        </li>
+                      </ul>
+                    </div>
+                          
+                    <div>
+                      <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-black">Payment</h2>
+                      <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li class="mb-4">
+                          <img src="./assets/paymongo.png" alt="Paymongo" class="h-10 w-20">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                      
+                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                <div class="sm:flex sm:items-center sm:justify-between">
+                  <span class="text-sm text-gray-500 sm:text-center dark:text-black">
+                    © 2025 <a href="index.html" class="hover:underline">NearBuy™</a>. All Rights Reserved.
+                  </span>
+                </div>
+              </div>
+            </footer>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+      const thumbnails = document.querySelectorAll('.thumbnail');
+      const mainLight = document.getElementById('main-light');
+      const mainDark = document.getElementById('main-dark');
+    
+      thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', () => {
+          const newSrc = thumbnail.getAttribute('data-src');
+          mainLight.src = newSrc;
+          mainDark.src = newSrc;
+        });
+      });
+    </script>
+</body>
+</html>

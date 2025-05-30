@@ -38,16 +38,16 @@ form.addEventListener("submit", async (e) => {
                     window.location.href = "seller.html";
                     break;
                 default:
-                    alert("❌ Unknown user type!");
+                    alert(" Unknown user type!");
             }
         } else {
-            alert("❌ Invalid email or password. Please try again.");
+            alert(" Invalid email or password. Please try again.");
         }
 
     } catch (error) {
         console.error('Login error:', error);
         if (error.message.includes("No rows found")) {
-            alert("❌ Invalid email or password. Please try again.");
+            alert(" Invalid email or password. Please try again.");
         } else {
             alert('Error logging in: ' + error.message);
         }

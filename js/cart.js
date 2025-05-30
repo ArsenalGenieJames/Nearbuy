@@ -123,9 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 emptyCartAlert.style.display = 'block';
                  // Scroll to the alert message
                 emptyCartAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            // Optionally, you could also use a simple alert:
-            // alert('Your cart is empty. Add items before checking out.');
+            };
             return;
         }
 
@@ -152,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. Insert into ordered table for each cart item
             const orderedItemsToInsert = cartItems.map(item => ({
                 orders_id: newOrderId,
-                product_id: item.id, // Assuming item in sessionStorage has product ID
+                product_id: item.id, 
                 price: item.price,
                 quantity: item.quantity,
                 subtotal: item.price * item.quantity
@@ -164,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (orderedError) {
                 console.error('Error creating ordered items:', orderedError);
-                 // Consider compensating transaction: delete the created order if ordered items fail
+                 //  delete the created order if ordered items fail
                 alert('Error saving order details. Please contact support.');
                 return;
             }
@@ -212,10 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (customerNameElement && user && user.firstname && user.lastname) {
             customerNameElement.textContent = `${user.firstname} ${user.lastname}`;
         } else if (customerNameElement) {
-            customerNameElement.textContent = 'Guest'; // Set a default if name is not available
+            customerNameElement.textContent = 'Guest'; // default name if the user not logged in
             console.warn('User name not found in sessionStorage.', user);
         }
 
-        // Render cart items on page load
         renderCart();
     });

@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             uploadFormData.append('image', file);
             uploadFormData.append('path', targetPath);
 
-            // Use fetch to upload the image
-            // Assuming 'php/upload.php' is the correct endpoint for general file uploads
-            // based on the context provided (seller.js uses 'php/upload.php' for products)
-            // If 'php/store.php' is specifically for store-related uploads, keep that.
+            // fetch to upload the image
+            // 'php/upload.php' is the correct endpoint for general file uploads
+            // the context provided (seller.js uses 'php/upload.php' for products)
+            // 'php/store.php' is specifically for store-related uploads, keep that.
             // Let's assume 'php/upload.php' is the general one.
             const uploadRes = await fetch('php/upload.php', {
                 method: 'POST',
