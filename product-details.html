@@ -56,7 +56,6 @@
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
       </svg>
       </button>
-    <!-- Dropdown menu -->
     <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
         <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
           <li>
@@ -111,11 +110,11 @@
     
 
           <div class="flex flex-col mt-6 lg:mt-0">
-            <h1 class="text-xl font-semibold text-black sm:text-2xl mb-4">Suka Pinakurat Demonyo</h1>
-    
+            <h1 class="text-xl font-semibold text-black sm:text-2xl mb-4" id="product-name">Suka Pinakurat Demonyo</h1>
+
 
             <div class="flex items-center gap-2 mb-4">
-              <div class="flex items-center gap-1 text-yellow-300">
+              <div class="flex items-center gap-1 text-yellow-300" id="product-rating">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
@@ -123,15 +122,15 @@
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L19 22l-7-4-7 4 2.5-8.5L2 9h7z"/></svg>
               </div>
               <p class="text-sm font-medium leading-none text-black">(5.0)</p>
-              <a href="#" class="text-sm font-medium text-black underline hover:no-underline">150 Reviews</a>
+              <a href="#" class="text-sm font-medium text-black underline hover:no-underline" id="review-count">150 Reviews</a>
             </div>
 
             <div class="mt-4 sm:flex sm:items-center sm:gap-4">
-              <p class="text-2xl font-extrabold text-black sm:text-3xl">₱192.00</p>
+              <p class="text-2xl font-extrabold text-black sm:text-3xl" id="product-price">₱192.00</p>
             </div>
     
 
-            <p class="mb-1 mt-2 text-black">
+            <p class="mb-1 mt-2 text-black" id="product-description">
               The word “Kurat™®©” is not germane or related to the product “Vinegar”, “and thus was allowed registration by the Intellectual Property Office as a Trademark in favor of Reinard Donn Stuart del Rosario. In 2008, trademark ownership was transferred to Green Gold Gourmet Foods Inc. 
             </p>
             
@@ -140,16 +139,29 @@
             <div class="flex flex-col">
               <div class="flex items-center gap-2 mb-4">
                 <b class="text-black">Size:</b>
-                <div class="flex gap-2 flex-wrap">
-                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">XS</button>
-                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">S</button>
-                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">M</button>
-                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">L</button>
-                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300">XL</button>
+                <div class="flex gap-2 flex-wrap" id="size-options">
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="xs">XS</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="s">S</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="m">M</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="l">L</button>
+                  <button class="cursor-pointer px-4 py-2 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="xl">XL</button>
                 </div>
               </div>
+
+              <div class="flex items-center gap-2 mb-4">
+                <b class="text-black">Quantity:</b>
+                <div class="flex items-center gap-2">
+                  <button class="px-3 py-1 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="decrease-quantity">-</button>
+                  <span class="text-black">0</span>
+                  <button class="px-3 py-1 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:ring-2 focus:ring-yellow-300" id="increase-quantity">+</button>  
+              </div>
+               <div class="flex items-center gap-2">
+                  <button class="cursor-pointer px-3 py-1 text-sm font-medium text-black bg-white border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-300" id="add-to-cart">
+                    <i class="fas fa-cart-plus"></i>
+                    Buy now
+                  </button>
+              </div>
             </div>
-    
           </div>
         </div>
       </div>
@@ -162,8 +174,8 @@
         
 
         <div class="flex items-center gap-4">
-          <p class="font-bold text-black text-lg">Suka Pinakurat</p>
-          <p class="text-black text-sm flex items-center gap-2">
+          <p class="font-bold text-black text-lg" id="shop-name">Suka Pinakurat</p>
+          <p class="text-black text-sm flex items-center gap-2" id="shop-address">
             <i class="fas fa-map-marker-alt text-red-800"></i>
             Green Gold Gourmet Foods, Isabel Village, Brgy. Palao
           </p>

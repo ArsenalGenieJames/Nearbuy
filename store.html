@@ -48,7 +48,6 @@
     </form>
   </div>
 
-  
 
     <div class="flex items-center space-x-4">
       <div class="relative inline-block text-white">
@@ -73,16 +72,22 @@
 
     <div class="w-full md:h-50 flex items-center justify-center" style="background: linear-gradient(347deg, rgba(255, 208, 0, 1) 0%, rgba(255, 0, 0, 1) 100%);">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between w-full max-w-screen-xl mx-auto py-8 px-4 gap-8">
-            <!-- Store Profile -->
-            <div class="flex items-center gap-4">
-                <!-- The src attribute should ideally be dynamically loaded from the 'profile_store' column -->
-                <img src="./assets/img/nearbuy_primary_logo.png" alt="Store Logo" class="w-24 h-24 rounded-full border-4 border-[#F6CD13] shadow-md object-cover bg-white" id="storeProfileImage" />
-                <div>
-                    <!-- The text content should be dynamically loaded from the 'store_name' column -->
-                    <h2 class="text-2xl font-bold text-white" id="store_name"></h2>
-                    <p class="text-white text-sm mt-1">Your trusted local marketplace</p>
-                </div>
-            </div>
+              <!-- Store Profile -->
+              <div class="flex items-center gap-4">
+            <img 
+                src="./assets/img/nearbuy_primary_logo.png" 
+                alt="Store Logo" 
+                class="w-24 h-24 rounded-full border-4 border-[#F6CD13] shadow-md object-cover bg-white" 
+                id="storeProfileImage" 
+            />
+
+            <!-- Store Name and Description -->
+          <div>
+              <h2 class="text-2xl font-bold text-white" id="store_name">Loading...</h2>
+              <p class="text-white text-sm mt-1">Your trusted local marketplace</p>
+          </div>
+  </div>
+
 
             <!-- Store Rating -->
             <div class="flex flex-col items-start md:items-center">
